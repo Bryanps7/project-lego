@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../db/conn');
 
-const Address = db.define('Address', {
+const Address = db.define('address', {
     id: { // Identificador único do Endereço
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -11,57 +11,55 @@ const Address = db.define('Address', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'Users',
+            model: 'users',
             key: 'id'
         },
     },
     cep: { // Código de Endereçamento Postal
-        type: DataTypes.INT(8),
-        allowNull: false,
-        validate: {
-            len: [8, 8] // CEP deve ter exatamente 8 dígitos
-        }
+        type: DataTypes.INTEGER(8),
+        allowNull: false
     },
     street: { // logradouro
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(70),
         allowNull: false
     },
-    number: { // Número da residência
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }, 
     complement: { // Complemento do endereço (opcional)
         type: DataTypes.STRING(100),
         allowNull: true
     },
     neighborhood: { // Bairro
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(70),
         allowNull: false
     },
     city: { // Cidade
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(70),
         allowNull: false
     },
     state: { // Estado
         type: DataTypes.STRING(2),
-        allowNull: false,
-        validate: {
-            len: [2, 2] // Estado deve ter exatamente 2 caracteres (sigla)
-        }
+        allowNull: false
     },
-    country: { // País
-        type: DataTypes.STRING(100),
-        allowNull: false,
-        defaultValue: 'Brasil'
+    number: { // Número da residência
+        type: DataTypes.INTEGER(12),
+        allowNull: false
+    }, 
+    nickname: { // Apelido para o endereço (ex: "Casa", "Trabalho")
+        type: DataTypes.STRING(50),
+        allowNull: true
     },
     is_primary: { // Indica se o endereço é o principal do usuário
         type: DataTypes.BOOLEAN,
         defaultValue: false,
         allowNull: false
+    },
+    country: { // País
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        defaultValue: 'Brasil'
     }
 }, {
     tableName: 'addresses',
-    timestamps: true,
+    timestamps: true
 });
 
 module.exports = Address;

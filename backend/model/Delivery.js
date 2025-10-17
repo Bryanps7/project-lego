@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../db/conn');
 
-const Delivery = db.define('Delivery', {
+const Delivery = db.define('delivery', {
     id: { // Identificador único da Entregador
         type: DataTypes.INTEGER,
         primaryKey: true,
