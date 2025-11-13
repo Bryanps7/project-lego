@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('project-lego', 'root', 'luna', {
+const sequelize = new Sequelize('project-lego', 'root', 'senai', {
     host: 'localhost',
     dialect: 'mysql',
     port: 3306
