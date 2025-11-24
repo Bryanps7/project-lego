@@ -15,14 +15,14 @@ const Sale = db.define('Sale', {
             key: 'id'
         }
     },
-    coupon_id: { // ID do cupom aplicado na compra (se houver)
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-            model: 'coupons',
-            key: 'id'
-        }
-    },
+    // coupon_id: { // ID do cupom aplicado na compra (se houver)
+    //     type: DataTypes.INTEGER,
+    //     allowNull: true,
+    //     references: {
+    //         model: 'coupons',
+    //         key: 'id'
+    //     }
+    // },
     status: { // Status da venda - (pendente, concluída, cancelada)
         type: DataTypes.ENUM('pending', 'completed', 'canceled'),
         allowNull: false,

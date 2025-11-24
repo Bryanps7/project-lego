@@ -32,14 +32,14 @@ const Product = db.define('Product', {
         allowNull: false,
         unique: true
     },
-    category_id: { // ID da categoria do produto
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'categories',
-            key: 'id'
-        },
-    },
+    // category_id: { // ID da categoria do produto
+    //     type: DataTypes.INTEGER,
+    //     allowNull: false,
+    //     references: {
+    //         model: 'categories',
+    //         key: 'id'
+    //     },
+    // },
 
 }, {
     tableName: 'products',

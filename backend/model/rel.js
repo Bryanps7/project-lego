@@ -1,33 +1,54 @@
-// const Address = require('./Address');
-const Avatar = require('./Avatar');
-// const Cart = require('./Cart');
-// const Cart_item = require('./Cart_item');
-// const Category = require('./Category');
-// const Coupon = require('./Coupon');
-// const Delivery = require('./Delivery');
-// const Image = require('./Image');
-// const Log = require('./Log');
-// const Payment = require('./Payment');
-// const Product = require('./Product');
-// const Review = require('./Review');
-// const Sale = require('./Sale');
-// const Sale_item = require('./Sale_item');
-// const Shipment = require('./Shipment');
-// const Stock = require('./Stock');
+const Product = require('./Product');
+const Sale = require('./Sale');
+const Sale_item = require('./Sale_item');
 const User = require('./User');
-// const Wishlist = require('./Wishlist');
 
-// Avatar & User | 0:N
-Avatar.hasMany(User, {
-    as: 'userAvatar',
-    foreignKey: 'avatar_id',
+// User : Sale
+User.hasMany(Sale, {
+    foreignKey: {
+        name: 'user_id',
+        allowNull: false
+    },
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 })
 
-User.belongsTo(Avatar, {
-    as: 'avatarUser',
-    foreignKey: 'avatar_id'
+Sale.belongsTo(User, {
+    foreignKey: 'user_id'
 })
 
-module.exports = { Avatar, User }
+// Sale : Sale_item
+Sale.hasMany(Sale_item, {
+    foreignKey: {
+        name: 'sale_id',
+        allowNull: false
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Sale_item.belongsTo(Sale, {
+    foreignKey: {
+        name: 'sale_id',
+        allowNull: false
+    }
+})
+
+// Product : Sale_item
+Product.hasMany(Sale_item, {
+    foreignKey: {
+        name: 'product_id',
+        allowNull: false
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Sale_item.belongsTo(Product, {
+    foreignKey: {
+        name: 'product_id',
+        allowNull: false
+    }
+})
+
+module.exports = { Product, Sale_item, Sale, User }
