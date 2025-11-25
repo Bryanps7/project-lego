@@ -1,0 +1,5 @@
+.cont_grid{
+    display: grid;
+    grid-template-columns: repeat(2,340px);
+    gap: 20px;
+}
