@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "db": "node db/conn.js"
+    "start": "nodemon index_local.js",
+    "sync": "node sync.js"
   },
   "keywords": [],
   "author": "Bryan Prinz",

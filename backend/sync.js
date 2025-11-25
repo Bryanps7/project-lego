@@ -10,7 +10,11 @@ const db = require('./db/conn')
 async function syncDataBase() {
     try {
         console.log('> sincronizando banco de dados...');
-        await db.sync({ force: true })
+        
+        // ALTER QUANDO ESTIVER EM TESTE, FORCE EM PRODUÇÃO
+        await db.sync({ alter: true })
+        // await db.sync({ force: true })
+        
         console.log('> banco de dados sincronizado.');
     } catch (err) {
         console.error('> ERRO: erro ao sincronizar banco de dados: ', err);

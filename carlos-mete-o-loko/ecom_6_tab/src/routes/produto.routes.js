@@ -18,24 +18,24 @@ router.post(
 
 // GET – Listar produtos (qualquer usuário logado)
 router.get(
-'/',
-authMiddleware,
-listar
+    '/',
+    authMiddleware,
+    listar
 )
 
 // Atualizar parcialmente produto (ADMIN)
 router.patch(
-'/:id',
-authMiddleware,
-isAdminMiddleware,
-atualizar
+    '/:id',
+    authMiddleware,
+    isAdminMiddleware,
+    atualizar
 )
 
 // PUT - completo
 router.put(
-    '/:id', 
-    authMiddleware, 
-    isAdminMiddleware, 
+    '/:id',
+    authMiddleware,
+    isAdminMiddleware,
     atualizarCompleto
 )
 

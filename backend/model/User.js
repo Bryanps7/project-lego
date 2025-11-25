@@ -42,8 +42,8 @@ const User = db.define('User', {
         }
     },
     access_level: { // Nível de acesso do usuário (usuário normal, administrador, proprietário do sistema, entregador)
-        type: DataTypes.ENUM('user', 'admin', 'owner', 'delivery'),
-        defaultValue: 'user',
+        type: DataTypes.ENUM('USER', 'ADMIN', 'OWNER', 'DELIVERY'),
+        defaultValue: 'USER',
         allowNull: false
     },
     status: { // Status do usuário (ativo, inativo) - Usuários são dados como inativos quando são bloqueados, demitidos ou por inatividade (mais de 1 ano sem login).

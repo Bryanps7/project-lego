@@ -42,6 +42,11 @@ const Sale_item = db.define('Sale_item', {
         }
     }
 }, {
+    // Chave composta para garantir que o mesmo produto só possa aparecer uma vez por pedido
+    indexes: [{
+        unique: true,
+        fields: ['sale_id', 'product_id']
+    }],
     tableName: 'sale_items',
     timestamps: true,
 });

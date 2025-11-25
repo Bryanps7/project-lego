@@ -39,7 +39,7 @@ const Product = db.define('Product', {
     //         model: 'categories',
     //         key: 'id'
     //     },
-    // },
+    // }
 
 }, {
     tableName: 'products',

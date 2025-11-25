@@ -23,8 +23,8 @@ const Sale = db.define('Sale', {
     //         key: 'id'
     //     }
     // },
-    status: { // Status da venda - (pendente, concluída, cancelada)
-        type: DataTypes.ENUM('pending', 'completed', 'canceled'),
+    status: { // Status da venda - (pendente, pago, enviado, delivered, cancelada)
+        type: DataTypes.ENUM('pending', 'paid', 'sent', 'delivered', 'canceled'),
         allowNull: false,
     },
     freight: { // Valor do frete
@@ -39,7 +39,7 @@ const Sale = db.define('Sale', {
         }
     },
     total: { // Valor total da compra (com frete e descontos)
-        type: DataTypes.DECIMAL(10, 2), 
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
         validate: {
             min: 0.01 // O total deve ser maior que zero
