@@ -1,11 +1,12 @@
 const Product = require('../model/Product')
+const { Op } = require('sequelize')
 
 async function createProduct(dados) {
 
-    const { name, description, price, status, slug } = dados
+    const { name, description, price, status, slug, blocks, age_min, avaliation } = dados
 
-    if (!name || !price || !status || !slug) {
-        throw new Error('nome e preço são obrigatórios')
+    if (!name || !price || !status || !slug || !blocks || !age_min) {
+        throw new Error('Dados incompletos para criar o produto')
     }
 
     const newProduct = await Product.create(dados)
@@ -13,8 +14,33 @@ async function createProduct(dados) {
     return newProduct
 }
 
+async function searchProducts(search) {
+    // Essa rota vai buscar os produtos com base no nome e descrição
+    
+    if (!search || typeof search !== 'string') {
+        throw new Error('Termo de busca ausente ou inválido')
+    }
+
+    const products = await Product.findAll({
+        where: {
+            status: true,
+            [Op.or]: [
+                { name: { [Op.like]: `%${search}%` } },
+                { description: { [Op.like]: `%${search}%` } }
+            ]
+        }
+    })
+
+    return products
+
+}
+
 async function listProducts() {
-    const products = await Product.findAll()
+    const products = await Product.findAll({
+        where: {
+            status: true
+        }
+    })
 
     return products
 }
@@ -47,6 +73,7 @@ async function deleteProduct(id) {
 
 module.exports = {
     createProduct,
+    searchProducts,
     listProducts,
     updateProduct,
     deleteProduct

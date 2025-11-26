@@ -13,7 +13,20 @@
 }
 
 header {
-    height: 180px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header #topo {
+    width: 90%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    font-weight: bold;
 }
 
 header #logout {
@@ -21,7 +34,6 @@ header #logout {
     justify-content: end;
     align-items: center;
     height: 90px;
-    padding-right: 50px;
 }
 
 header #logout button {
@@ -32,6 +44,7 @@ header #logout button {
 }
 
 header #route {
+    width: 100%;
     background-color: #ffcf00;
     height: 90px;
 }
@@ -108,4 +121,52 @@ header a {
     font-weight: bold;
     color: black;
 
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+main #capa {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main section {
+    width: 70%;
+}
+
+main h1 {
+    margin: 20px 0;
+    font-weight: 100;
+    font-size: 2rem;
+    text-align: start;    
+}
+
+#destaques {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    font-weight: bold;
+}
+
+#destaques img {
+    width: 90%;
+    border: 1px solid darkgray;
+    padding: 5px;
+}
+
+#destaques button {
+    background-color: #006cb7;
+    font-weight: bold;
+    margin-top: 6px;
+    width: 80%;
+    padding: 10px;
+    border-radius: 30px;
+    border: 0;
 }

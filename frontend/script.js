@@ -21,6 +21,7 @@ entrar.addEventListener('click', (e) => {
         document.getElementById('login').style.display = 'none'
     } else {
         document.getElementById('login').style.display = 'flex'
+        document.getElementById('div-cadastrar').style.display = 'none'
     }
 })
 

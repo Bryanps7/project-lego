@@ -1,5 +1,6 @@
 const {
     createProduct,
+    searchProducts,
     listProducts,
     updateProduct,
     deleteProduct
@@ -13,6 +14,19 @@ async function create(req, res) {
             message: 'produto criado com sucesso',
             product
         })
+    } catch (err) {
+        return res.status(500).json({
+            error: err.message
+        })
+    }
+}
+
+async function search(req, res) {
+    const searchTerm = req.query.query
+    
+    try {
+        const products = await searchProducts(searchTerm)
+        return res.status(200).json(products)
     } catch (err) {
         return res.status(500).json({
             error: err.message
@@ -70,6 +84,7 @@ async function delet(req, res) {
 
 module.exports = {
     create,
+    search,
     list,
     update,
     delet

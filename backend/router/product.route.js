@@ -3,6 +3,7 @@ const router = express.Router()
 
 const {
     create,
+    search,
     list,
     update,
     delet
@@ -18,6 +19,13 @@ router.post(
     authMiddleware, // precisa estar logado
     isAdminMiddleware, // precisa ser admin
     create
+)
+
+// GET /produto/search?q=nome
+router.get(
+    '/search',
+    authMiddleware,
+    search
 )
 
 router.get(

@@ -32,6 +32,28 @@ const Product = db.define('Product', {
         allowNull: false,
         unique: true
     },
+    blocks: { // Número de blocos do produto
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+            min: 1 // Deve ter pelo menos 1 bloco
+        }
+    },
+    age_min: { // Idade mínima recomendada para o produto
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+            min: 0 // Idade mínima não pode ser negativa
+        }
+    },
+    avaliation: { // Avaliação média do produto
+        type: DataTypes.DECIMAL(1, 1),
+        allowNull: true,
+        validate: {
+            min: 0.0,
+            max: 5.0
+        }
+    },
     // category_id: { // ID da categoria do produto
     //     type: DataTypes.INTEGER,
     //     allowNull: false,
