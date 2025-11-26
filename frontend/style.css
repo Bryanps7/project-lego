@@ -1,0 +1,111 @@
+@font-face {
+    font-family: 'titulo';
+    src: url('./CeraPro-Regular.woff2') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-family: 'titulo';
+}
+
+header {
+    height: 180px;
+}
+
+header #logout {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 90px;
+    padding-right: 50px;
+}
+
+header #logout button {
+    border: 0;
+    background-color: transparent;
+    font-weight: bold;
+    padding: 20px;
+}
+
+header #route {
+    background-color: #ffcf00;
+    height: 90px;
+}
+
+#login, #div-cadastrar {
+    display: none;
+    position: fixed;
+    top: 30%;
+    left: 40%;
+    width: 20%;
+    height: auto;
+    box-shadow: 0 0 10px gray;
+    flex-direction: column;
+    text-align: center;
+    padding: 0.75rem;
+}
+
+#login p, #div-cadastrar p {
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin: 3px 0;
+}
+
+#login input, #div-cadastrar input {
+    border-radius: 5px;
+    border: 3px solid darkgray;
+    margin: 3px 0;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+}
+
+#login hr, #div-cadastrar hr {
+    margin: 30px 0;
+    border: 0.01rem solid darkgray;
+}
+
+#login button, #div-cadastrar button {
+    background-color: #006cb7;
+    color: white;
+    width: 30%;
+    padding: 15px;
+    border-radius: 30px;
+    border: 0;
+}
+
+#login a, #div-cadastrar a {
+    margin: 20px 0;
+    font-size: 1.3rem;
+    color: #174199;
+    text-decoration: none;
+}
+
+header #route {
+    display: flex;
+    justify-content: space-between;
+}
+
+header #route nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+}
+
+header #route div {
+    display: flex;
+    width: 20%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+header a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+
+}

@@ -30,11 +30,12 @@ async function login(email, senha) {
 
     return {
         token,
-        usuario: {
+        user: {
             id: user.id,
             name: user.name,
             email: user.email,
-            access_level: user.access_level
+            access_level: user.access_level,
+            coin_points: user.coin_points
         }
     }
 }
