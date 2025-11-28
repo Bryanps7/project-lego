@@ -49,7 +49,8 @@ header #route {
     height: 90px;
 }
 
-#login, #div-cadastrar {
+#login,
+#div-cadastrar {
     display: none;
     position: fixed;
     top: 30%;
@@ -62,13 +63,15 @@ header #route {
     padding: 0.75rem;
 }
 
-#login p, #div-cadastrar p {
+#login p,
+#div-cadastrar p {
     font-weight: bold;
     font-size: 1.3rem;
     margin: 3px 0;
 }
 
-#login input, #div-cadastrar input {
+#login input,
+#div-cadastrar input {
     border-radius: 5px;
     border: 3px solid darkgray;
     margin: 3px 0;
@@ -76,12 +79,14 @@ header #route {
     font-size: 1.2rem;
 }
 
-#login hr, #div-cadastrar hr {
+#login hr,
+#div-cadastrar hr {
     margin: 30px 0;
     border: 0.01rem solid darkgray;
 }
 
-#login button, #div-cadastrar button {
+#login button,
+#div-cadastrar button {
     background-color: #006cb7;
     color: white;
     width: 30%;
@@ -90,7 +95,8 @@ header #route {
     border: 0;
 }
 
-#login a, #div-cadastrar a {
+#login a,
+#div-cadastrar a {
     margin: 20px 0;
     font-size: 1.3rem;
     color: #174199;
@@ -145,7 +151,7 @@ main h1 {
     margin: 20px 0;
     font-weight: 100;
     font-size: 2rem;
-    text-align: start;    
+    text-align: start;
 }
 
 #destaques {

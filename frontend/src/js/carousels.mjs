@@ -1,4 +1,4 @@
-import * as module from "../Design/design.js";
+import * as module from "../css/config.js";
 
 const prevBtnCpt = document.querySelector(".prev-btn-cpt")
 const nextBtnCpt = document.querySelector(".next-btn-cpt")

@@ -2,7 +2,7 @@ const entrar = document.getElementById('entrar')
 
 window.addEventListener('load', (e) => {
     e.preventDefault()
-    
+
     if (localStorage.getItem('nome')) {
         const logout = document.getElementById('logout')
 

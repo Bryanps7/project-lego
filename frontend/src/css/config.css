@@ -27,7 +27,7 @@ html,
 
 .body {
 
-    background-color: rgb(0,0,0);
+    background-color: rgb(0, 0, 0);
     color: white;
     padding: 1rem;
 }
@@ -225,6 +225,7 @@ html,
     left: 4.5px;
     transition: transform 0.5s;
 }
+
 /* Animazioni */
 .line1-anim {
     transform: rotate(-270deg);
@@ -300,6 +301,7 @@ html,
 .custom-card-1 img {
     transition: all 1s ease-in-out;
 }
+
 .custom-card-1:hover img {
     transform: scale(1.2);
 }
