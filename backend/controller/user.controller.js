@@ -1,5 +1,9 @@
 const {
-    createUser
+    createUser,
+    searchUsers,
+    listUsers,
+    updateUser,
+    deleteUser
 } = require('../service/user.service')
 
 async function create(req, res) {
@@ -17,6 +21,74 @@ async function create(req, res) {
     }
 }
 
+async function search(req, res) {
+    const searchTerm = req.query.s
+    
+    try {
+        const users = await searchUsers(searchTerm)
+        return res.status(200).json(users)
+    } catch (err) {
+        return res.status(500).json({
+            error: err.message
+        })
+    }
+}
+
+async function list(req, res) {
+    try {
+        const users = await listUsers()
+
+        return res.status(200).json(users)
+    } catch (err) {
+        return res.status(500).json({
+            error: err.message
+        })
+    }
+}
+
+async function update(req, res) {
+    const { id } = req.params
+    const ownId = req.query.own
+    const dados = req.body
+
+    try {
+        const userUpdate = await updateUser(id, ownId, dados)
+
+        return res.status(200).json({
+            message: 'produto atualizado com sucesso',
+            user: userUpdate
+        })
+
+
+    } catch (err) {
+        return res.status(500).json({
+            error: err.message
+        })
+    }
+}
+
+async function delet(req, res) {
+    const { id } = req.params
+    const ownId = req.query.own
+
+
+    try {
+        await deleteUser(id, ownId)
+
+        return res.status(200).json({
+            message: 'produto apagado com sucesso'
+        })
+    } catch (err) {
+        return res.status(500).json({
+            error: err.message
+        })
+    }
+}
+
 module.exports = {
-    create
+    create,
+    search,
+    list,
+    update,
+    delet
 }

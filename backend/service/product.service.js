@@ -1,15 +1,28 @@
 const Product = require('../model/Product')
 const { Op } = require('sequelize')
+const { gerarSlug } = require('../utils/function')
 
 async function createProduct(dados) {
 
-    const { name, description, price, status, slug, blocks, age_min, avaliation } = dados
+    const { name, description, price, status, blocks, age_min, avaliation, stock } = dados
 
-    if (!name || !price || !status || !slug || !blocks || !age_min) {
+    if (!name || !price || !status || !blocks || !age_min || !stock) {
         throw new Error('Dados incompletos para criar o produto')
     }
 
-    const newProduct = await Product.create(dados)
+    const slug = gerarSlug(name)
+
+    const newProduct = await Product.create({
+        name,
+        description,
+        price,
+        status,
+        slug,
+        blocks,
+        age_min,
+        avaliation,
+        stock
+    })
 
     return newProduct
 }
@@ -68,7 +81,10 @@ async function deleteProduct(id) {
 
     await product.destroy()
 
-    return true
+    return {
+        status: true,
+        message: 'Dados Apagados com Sucesso!'
+    }
 }
 
 module.exports = {

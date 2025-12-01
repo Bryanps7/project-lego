@@ -2,9 +2,9 @@
 [ ] - imagens (jpg, png ou webp)
 [ ] - modelagem (UML - caso de uso geral e diagrama de classe )
 [ ] - engenharia reversa do modelo
-[ ] - sistema de login com bcrypt
-[ ] - validação de CPF
-[ ] - validação com regex
+[X] - sistema de login com bcrypt
+[X] - validação de CPF
+[X] - validação com regex
 [ ] - validação com front end
 [ ] - endereços a partir do VIACEP
 [ ] - carrinho e resumo de compra

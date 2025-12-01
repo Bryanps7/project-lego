@@ -1,4 +1,5 @@
 const User = require('../model/User')
+const { Op } = require('sequelize')
 
 const { validaEmail, validaTelefone, validaCPF } = require('../utils/validacao')
 
@@ -35,6 +36,70 @@ async function createUser(dados) {
     return { ok: true }
 }
 
+async function searchUsers(search) {
+    // Essa rota vai buscar os usuários com base no nome ou email
+
+    if (!search || typeof search !== 'string') {
+        throw new Error('Termo de busca ausente ou inválido')
+    }
+
+    const users = await User.findAll({
+        where: {
+            [Op.or]: [
+                { name: { [Op.like]: `%${search}%` } },
+                { email: { [Op.like]: `%${search}%` } }
+            ]
+        }
+    })
+
+    return users
+}
+
+async function listUsers() {
+    return await User.findAll()
+}
+
+async function updateUser(id, ownId, dados) {
+    const user = await User.findByPk(id)
+
+    dados.password = await hashSenha(dados.password)
+
+    if (!user) {
+        throw new Error('Usuário não encontrado')
+    }
+
+    if (id !== ownId) {
+        throw new Error('Você não tem permissão para atualizar esse usuário')
+    }
+
+    await user.update(dados)
+
+    return user
+}
+
+async function deleteUser(id, ownId) {
+    const user = await User.findByPk(id)
+
+    if (!user) {
+        throw new Error('Usuário não encontrado')
+    }
+
+    if (id !== ownId) {
+        throw new Error('Você não tem permissão para apagar esse usuário')
+    }
+
+    await user.destroy()
+
+    return {
+        status: true,
+        message: 'Dados Apagados com Sucesso!'
+    }
+}
+
 module.exports = {
-    createUser
+    createUser,
+    searchUsers,
+    listUsers,
+    updateUser,
+    deleteUser
 }

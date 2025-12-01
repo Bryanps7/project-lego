@@ -22,7 +22,7 @@ async function create(req, res) {
 }
 
 async function search(req, res) {
-    const searchTerm = req.query.query
+    const searchTerm = req.query.s
     
     try {
         const products = await searchProducts(searchTerm)

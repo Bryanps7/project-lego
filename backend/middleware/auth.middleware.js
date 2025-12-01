@@ -7,7 +7,7 @@ function authMiddleware(req, res, next) {
     const authHeader = req.headers['authorization']
 
     console.log(authHeader);
-    
+
 
     if (!authHeader) {
         console.log('[AUTH MIDDLEWARE] - Nenhum header Authorization encontrado!')
@@ -17,7 +17,7 @@ function authMiddleware(req, res, next) {
     const token = authHeader.split(' ')[1]
 
     console.log(token);
-    
+
 
     if (!token) {
         console.log('[AUTH MIDDLEWARE] - Token mal formatado!')
@@ -27,10 +27,14 @@ function authMiddleware(req, res, next) {
     try {
         const payload = verificarToken(token)
 
-        req.user = payload
 
+        if (!payload) {
+            return res.status(401).json({ error: "Token inválido" });
+        }
+
+        req.user = payload
         console.log('[AUTH MIDDLEWARE] - Token válido. Payload:')
-        console.log(req.user)
+        console.log(payload)
 
         return next()
 

@@ -28,14 +28,14 @@ const Sale_item = db.define('Sale_item', {
         allowNull: false
     },
     price: { // Preço unitário do produto no momento da venda
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.FLOAT(10, 2),
         allowNull: false,
         validate: {
             min: 0.01 // O preço deve ser maior que zero
         }
     },
     subtotal: { // Subtotal do item (price * quantity)
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.FLOAT(10, 2),
         allowNull: false,
         validate: {
             min: 0.01 // O subtotal deve ser maior que zero

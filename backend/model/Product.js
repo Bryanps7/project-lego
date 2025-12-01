@@ -16,7 +16,7 @@ const Product = db.define('Product', {
         allowNull: true
     },
     price: { // Preço do produto
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.FLOAT(10, 2),
         allowNull: false,
         validate: {
             min: 0.01 // Preço deve ser maior que 0
@@ -42,18 +42,29 @@ const Product = db.define('Product', {
     age_min: { // Idade mínima recomendada para o produto
         type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 3,
         validate: {
             min: 0 // Idade mínima não pode ser negativa
         }
     },
     avaliation: { // Avaliação média do produto
-        type: DataTypes.DECIMAL(1, 1),
+        type: DataTypes.FLOAT(5, 1),
         allowNull: true,
         validate: {
             min: 0.0,
             max: 5.0
         }
     },
+    stock: { // Estoque
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
+    reserved_stock: { // Valor do estoque que está reservado
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: 0
+    }
     // category_id: { // ID da categoria do produto
     //     type: DataTypes.INTEGER,
     //     allowNull: false,

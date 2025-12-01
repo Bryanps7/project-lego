@@ -22,30 +22,12 @@ router.post(
 )
 
 // GET /produto/search?q=nome
-router.get(
-    '/search',
-    authMiddleware,
-    search
-)
+router.get('/search', authMiddleware, search)
 
-router.get(
-    '/',
-    authMiddleware,
-    list
-)
+router.get('/', list)
 
-router.patch(
-    '/:id',
-    authMiddleware,
-    isAdminMiddleware,
-    update
-)
+router.patch('/:id', authMiddleware, isAdminMiddleware, update)
 
-router.delete(
-    '/:id',
-    authMiddleware,
-    isAdminMiddleware,
-    delet
-)
+router.delete('/:id', authMiddleware, isAdminMiddleware, delet)
 
 module.exports = router

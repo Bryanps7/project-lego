@@ -1,0 +1,329 @@
+@font-face {
+    font-family: 'Cera Pro';
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-Bold.woff2');
+    font-weight: 700;
+    font-display: bolder;
+}
+
+@font-face {
+    font-family: 'Cera Pro';
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-Medium.woff2');
+    font-weight: bold;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cera Pro';
+    src: url('https://assets.lego.com/fonts/v3/cera-pro/CeraPro-Regular.woff2');
+    font-weight: normal;
+    font-display: swap;
+}
+
+html,
+* {
+    font-family: 'cera pro', sans-serif;
+    margin: 0;
+}
+
+.body {
+
+    background-color: rgb(0,0,0);
+    color: white;
+    padding: 1rem;
+}
+
+.body button {
+    margin: 6px 2px;
+}
+
+.wrapper {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.typo {
+    margin-bottom: 20px;
+}
+
+.title {
+
+    font-size: 2rem;
+}
+
+.a-bold {
+    opacity: 0.6;
+    font-weight: bold;
+}
+
+.a-light {
+    opacity: 0.6;
+}
+
+.background {
+    margin-top: 20px;
+    color: black;
+    width: 400px;
+    height: 320px;
+    background-color: rgb(168, 168, 168);
+    border-radius: 4px;
+    border: 1px solid white;
+    box-shadow: 5px 8px white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.body img {
+    color: white;
+    padding: 3px;
+}
+
+.btn-area-giochi {
+    background-color: #abdaff;
+    border: none;
+    border-radius: 3px;
+    height: 25px;
+    width: 120px;
+    transition: all .15S;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.btn-area-giochi img {
+    rotate: 180deg;
+    margin-right: 8px;
+}
+
+.btn-area-giochi:hover {
+    background-color: white;
+    box-shadow: 0 0 5px 3px #abdbff88;
+    cursor: pointer;
+}
+
+.f-s-vip {
+    height: 34px;
+    width: 190px;
+    border-radius: 3px;
+    padding: 0;
+    border: none;
+    color: #d01d1d;
+    background-color: white;
+    font-size: 1rem;
+    transition: all 0.15s;
+}
+
+.f-s-vip:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+.btn-flex {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+/*.search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3rem;
+    border: none;
+    min-height: 40px;
+    min-width: 40px;
+    background-color: white;
+    cursor: pointer;
+}*/
+
+.white-btn {
+    display: flex;
+    align-items: center;
+    padding: 0.65rem 1.3rem;
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all .15s;
+}
+
+.white-btn svg {
+    margin-left: 1rem;
+    padding-left: 0;
+}
+
+.white-btn:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+.yellow-btn {
+    padding: 4.5px 9.5px;
+    background-color: #ffcf03;
+    border: none;
+    font-size: 0.75rem;
+}
+
+.add-cart-btn {
+    background-color: #fd8123;
+    padding: 1.08rem 0.93rem;
+    border: 2px solid #fd8123;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.15s;
+    margin: 0;
+}
+
+.add-cart-btn:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Bottoni Accordion */
+.circle {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-radius: 3rem;
+    border: 1px solid lightgray;
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    padding: 0.9rem;
+    cursor: pointer;
+}
+
+.line1 {
+    width: 3px;
+    height: 20px;
+    background-color: black;
+    margin-left: 8px;
+    position: absolute;
+    top: 4.5px;
+    left: 5px;
+    transition: transform 0.5s;
+}
+
+.line2 {
+    height: 3px;
+    width: 20px;
+    background-color: black;
+    position: absolute;
+    left: 4.5px;
+    transition: transform 0.5s;
+}
+/* Animazioni */
+.line1-anim {
+    transform: rotate(-270deg);
+}
+
+.line2-anim {
+    transform: rotate(-180deg);
+}
+
+.review-btn {
+    color: white;
+    background-color: #016db6;
+    border-radius: 4px;
+    padding: 1.075rem;
+    border: none;
+    font-size: 0.86rem;
+    font-weight: 500;
+}
+
+
+.hulk-btn {
+    color: #016db6;
+    border: 1px solid #016db6;
+    background-color: white;
+    padding: .7rem 1.31rem;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.hulk-btn:hover {
+    background-color: #e5f4ff;
+    transform: scale(1.02);
+}
+
+/* Bottoni Caroselli dark */
+.desc-carousel-btn {
+    height: fit-content;
+    width: fit-content;
+    background-color: #0000009a;
+    color: white;
+    border: none;
+    border-radius: 3rem;
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.desc-carousel-btn:hover {
+    background-color: white;
+    color: #000000;
+}
+
+
+.position {
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .8rem;
+    padding: 7px 0.75rem;
+    background-color: #18152c;
+}
+
+.fullscreen {
+    padding: 1rem;
+    height: fit-content;
+    margin: 3rem auto;
+}
+
+.custom-card-1 img {
+    transition: all 1s ease-in-out;
+}
+.custom-card-1:hover img {
+    transform: scale(1.2);
+}
+
+.card {
+    min-width: 280px !important;
+    height: fit-content !important;
+    cursor: pointer;
+}
+
+@media (max-width:368px) {
+    .card {
+        min-width: 240px !important;
+    }
+}
+
+.my-ratio {
+    aspect-ratio: 1/1;
+}
+
+.btn-area-giochi2 {
+    width: 90%;
+    margin: auto;
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+    box-shadow: 0 1px 10px #9ecaec;
+}

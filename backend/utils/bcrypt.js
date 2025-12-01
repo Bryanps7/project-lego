@@ -1,5 +1,8 @@
+require('dotenv').config()
+
 const bcrypt = require('bcrypt')
 const SALTOS = 10
+// const SALTOS = process.env.BCRYPT_SALT_ROUNDS
 
 async function hashSenha(senha){
     return await bcrypt.hash(senha,SALTOS)

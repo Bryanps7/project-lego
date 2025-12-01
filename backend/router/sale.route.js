@@ -3,24 +3,23 @@ const router = express.Router()
 
 const {
     create,
-    search,
     list,
-    update,
-    delet
-} = require('../controller/user.controller')
+    listUser,
+    update
+} = require('../controller/sale.controller')
 
-// Middlewares
+// Midlewares
 const authMiddleware = require('../middleware/auth.middleware')
 const isAdminMiddleware = require('../middleware/isAdmin.middleware')
 
-router.post('/', create)
+router.post('/', authMiddleware, create)
 
-router.get('/search', authMiddleware, isAdminMiddleware, search)
-
+// ESSE LISTA DE TODO MUNDO, SÓ ADMIN PODE VER
 router.get('/', authMiddleware, isAdminMiddleware, list)
 
-router.patch('/:id', authMiddleware, update)
+// ESSE LISTA O DO USUÁRIO, PARA ELE VER
+router.get('/:id', authMiddleware, listUser)
 
-router.delete('/:id', authMiddleware, delet)
+router.patch('/:id', authMiddleware, update)
 
 module.exports = router

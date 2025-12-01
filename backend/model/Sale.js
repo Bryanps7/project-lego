@@ -23,23 +23,23 @@ const Sale = db.define('Sale', {
     //         key: 'id'
     //     }
     // },
-    status: { // Status da venda - (pendente, pago, enviado, delivered, cancelada)
-        type: DataTypes.ENUM('pending', 'paid', 'sent', 'delivered', 'canceled'),
+    status: { // Status da venda - (pendente, pago, enviado, entregue, cancelada)
+        type: DataTypes.ENUM('PENDING', 'PAID', 'SENT', 'DELIVERED', 'CANCELED'),
         allowNull: false,
     },
     freight: { // Valor do frete
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.FLOAT(10, 2),
         allowNull: false,
     },
     subtotal: { // Valor subtotal da compra (sem frete e descontos)
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.FLOAT(10, 2),
         allowNull: false,
         validate: {
             min: 0.01 // O subtotal deve ser maior que zero
         }
     },
     total: { // Valor total da compra (com frete e descontos)
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.FLOAT(10, 2),
         allowNull: false,
         validate: {
             min: 0.01 // O total deve ser maior que zero
