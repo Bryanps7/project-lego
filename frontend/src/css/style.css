@@ -36,10 +36,6 @@ body {
     width: fit-content;
 }
 
-main {
-    margin-top: -1rem;
-}
-
 main .main-container {
     width: 100vw;
     min-height: 32vw;
