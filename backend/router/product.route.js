@@ -5,6 +5,7 @@ const {
     create,
     search,
     list,
+    listAdmin,
     update,
     delet
 } = require('../controller/product.controller')
@@ -25,6 +26,8 @@ router.post(
 router.get('/search', authMiddleware, search)
 
 router.get('/', list)
+
+router.get('/admin', authMiddleware, isAdminMiddleware, listAdmin)
 
 router.patch('/:id', authMiddleware, isAdminMiddleware, update)
 

@@ -56,4 +56,4 @@ function loadHead(file) {
 // Carregar Header e Footer
 loadComponent("../components/header.html", "header");
 loadComponent("../components/footer.html", "footer");
-loadHead('../components/head.html');
+// loadHead('../components/head.html');

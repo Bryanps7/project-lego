@@ -2,6 +2,7 @@ const {
     createProduct,
     searchProducts,
     listProducts,
+    listProductsAdmin,
     updateProduct,
     deleteProduct
 } = require('../service/product.service')
@@ -37,6 +38,18 @@ async function search(req, res) {
 async function list(req, res) {
     try {
         const products = await listProducts()
+
+        return res.status(200).json(products)
+    } catch (err) {
+        return res.status(500).json({
+            error: err.message
+        })
+    }
+}
+
+async function listAdmin(req, res) {
+    try {
+        const products = await listProductsAdmin()
 
         return res.status(200).json(products)
     } catch (err) {
@@ -86,6 +99,7 @@ module.exports = {
     create,
     search,
     list,
+    listAdmin,
     update,
     delet
 }

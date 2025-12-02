@@ -11,7 +11,7 @@ const btnAcquista2 = document.querySelector(".btn-acquista-2");
 const btnScopri2 = document.querySelector(".btn-scopri-2");
 const btnAiuto2 = document.querySelector(".btn-aiuto-2");
 const topNav = document.querySelector(".first-nav-cont")
-const topNavBtn = document.querySelector(".x900px")
+// const topNavBtn = document.querySelector(".x900px")
 
 /* Navbar Gialla */
 
@@ -40,9 +40,9 @@ window.addEventListener('scroll', function () {
 
 /* Chiusura navbar bianca responsive*/
 
-topNavBtn.addEventListener("click", () => {
-    topNav.style.display = "none"
-})
+// topNavBtn.addEventListener("click", () => {
+//     topNav.style.display = "none"
+// })
 
 /* Navbar Gialla */
 

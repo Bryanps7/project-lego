@@ -4,13 +4,16 @@ const { gerarSlug } = require('../utils/function')
 
 async function createProduct(dados) {
 
-    const { name, description, price, status, blocks, age_min, avaliation, stock } = dados
 
-    if (!name || !price || !status || !blocks || !age_min || !stock) {
+
+    const { name, description, price, blocks, age_min, avaliation, stock } = dados
+
+    if (!name || !price || !blocks || !age_min || !stock) {
         throw new Error('Dados incompletos para criar o produto')
     }
 
     const slug = gerarSlug(name)
+    const status = true
 
     const newProduct = await Product.create({
         name,
@@ -38,6 +41,7 @@ async function searchProducts(search) {
         where: {
             status: true,
             [Op.or]: [
+                { id: { [Op.like]: `${search}` } },
                 { name: { [Op.like]: `%${search}%` } },
                 { description: { [Op.like]: `%${search}%` } }
             ]
@@ -54,6 +58,12 @@ async function listProducts() {
             status: true
         }
     })
+
+    return products
+}
+
+async function listProductsAdmin() {
+    const products = await Product.findAll()
 
     return products
 }
@@ -91,6 +101,7 @@ module.exports = {
     createProduct,
     searchProducts,
     listProducts,
+    listProductsAdmin,
     updateProduct,
     deleteProduct
 }

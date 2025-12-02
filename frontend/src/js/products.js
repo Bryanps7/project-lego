@@ -1,55 +1,267 @@
-const destaques = document.getElementById('destaques')
+const token = window.localStorage.getItem('token')
 
-fetch('http://localhost:3000/product')
-    .then(resp => resp.json())
-    .then(dados => {
-        console.log(dados);
-        destaques.innerHTML = ''
-        for (const dado of dados) {
-            destaques.innerHTML += `
-                <div class="custom-card-1 bg-transparent card border-0 radius-0 w-25 px-3">
-                    <a class="text-decoration-none text-black" href="">
-                        <div class="position-relative border radius-0 w-100 my-ratio d-flex align-items-center">
-                            <div class="position-absolute d-flex pt-2 ps-2 w-100 top-0 z-index-1">
-                                <svg width="30" height="30" viewBox="0 0 40 40" alt=""
-                                    class="WishlistButtonstyles__StyledWishlistIcon-sc-1iowmvt-1 biMOpX">
-                                    <rect fill="#F8F8F8" width="40" height="40" rx="20"></rect>
-                                    <path
-                                        d="M19.986 30l.014-.014.014.014 8.223-8.116-.018-.019a5.678 5.678 0 0 0 1.78-4.126C30 14.569 27.398 12 24.187 12A5.829 5.829 0 0 0 20 13.762 5.827 5.827 0 0 0 15.815 12C12.604 12 10 14.569 10 17.739a5.68 5.68 0 0 0 1.782 4.126"
-                                        fill="white"></path>
-                                    <path
-                                        d="M26.84 20.417L20 27.204l-6.84-6.787A3.67 3.67 0 0 1 12 17.739C12 15.677 13.71 14 15.815 14a3.82 3.82 0 0 1 2.754 1.159l1.43 1.467 1.433-1.467A3.818 3.818 0 0 1 24.186 14C26.289 14 28 15.677 28 17.739a3.673 3.673 0 0 1-1.16 2.678M19.986 30l.014-.014.014.014 8.223-8.116-.018-.019a5.678 5.678 0 0 0 1.78-4.126C30 14.569 27.398 12 24.187 12A5.829 5.829 0 0 0 20 13.762 5.827 5.827 0 0 0 15.815 12C12.604 12 10 14.569 10 17.739a5.68 5.68 0 0 0 1.782 4.126"
-                                        fill="#006DB7"></path>
-                                </svg>
-                                <p class="fs-7 fw-bold ps-2 mt-1">Adicionar à lista de desejos</p>
-                            </div>
-                            <div class="w-75 m-auto">
-                                <img class="w-100 radius-0" src="./public/assets/img/76210.webp" alt="">
-                            </div>
-                            <button class="yellow-btn position-absolute bottom-0 mb-2 ms-2">
-                                Exclusivo
-                            </button>
-                        </div>
-                        <div class="card-body px-0 pb-0 d-flex justify-content-between flex-column border-0 radius-0">
-                            <h6 class="lh-2 fw-bold">${dado.name}</h6>
-                            <div class="score pb-1">
-                                <img class="p-0" src="./public/assets/svg/fullstar.svg" alt="full star">
-                                <img class="p-0" src="./public/assets/svg/fullstar.svg" alt="full star">
-                                <img class="p-0" src="./public/assets/svg/fullstar.svg" alt="full star">
-                                <img class="p-0" src="./public/assets/svg/fullstar.svg" alt="full star">
-                                <img class="p-0" src="./public/assets/svg/fullstar.svg" alt="full star">
-                            </div>
-                            <h5 class="fw-bolder">R$: ${dado.price.toFixed(2)}</h5>
-                            <button class="add-cart-btn w-100">
-                                Adicionar ao Carrinho
-                            </button>
-                        </div>
-                    </a>
-                </div>
+const create = document.getElementById('create')
+
+create.addEventListener('click', (e) => {
+    e.preventDefault()
+
+    const name = document.getElementById('nomeC').value
+    const description = document.getElementById('descricaoC').value
+    const price = Number(document.getElementById('precoC').value)
+    const blocks = Number(document.getElementById('pecasC').value)
+    const age_min = Number(document.getElementById('idade_minimaC').value)
+    const stock = Number(document.getElementById('estoqueC').value)
+
+
+    const dados = {
+        name,
+        description,
+        price,
+        blocks,
+        age_min,
+        stock
+    }
+
+    console.log(dados);
+
+    fetch('http://localhost:3000/product', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(dados)
+    })
+        .then(resp => resp.json())
+        .then(valores => {
+            console.log(valores);
+            // document.getElementById('table-create').style.display = 'flex'
+            const tbody = document.getElementById('listaProdutos-create')
+            let status = ''
+
+            if (valores.product.status) {
+                status = 'ATIVO'
+            } else {
+                status = 'INATIVO'
+            }
+
+            console.log(valores.product.name)
+
+            tbody.innerHTML += `
+            <tr>
+                <td>${valores.product.id}</td>
+                <td>${valores.product.name}</td>
+                <td class="descricao">${valores.product.description}</td>
+                <td class="preco">R$: ${valores.product.price.toFixed(2)}</td>
+                <td>${status}</td>
+                <td>${valores.product.slug}</td>
+                <td class="blocos">${valores.product.blocks} Blocos</td>
+                <td>+${valores.product.age_min}</td>
+                <td>${valores.product.stock}</td>
+                <td>${valores.product.reserved_stock}</td>
+            </tr>
         `
-        }
 
+        })
+
+    read()
+})
+
+window.addEventListener('load', (e) => { e.preventDefault(), read() })
+
+async function read() {
+    fetch('http://localhost:3000/product/admin', {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
     })
-    .catch((err)=>{
-        console.error(err.message);  
+        .then(resp => resp.json())
+        .then(valores => {
+            const tbody = document.getElementById('listaProdutos-read')
+            for (const i of valores) {
+                let status = ''
+
+                if (i.status) {
+                    status = 'ATIVO'
+                } else {
+                    status = 'INATIVO'
+                }
+
+                tbody.innerHTML += `
+            <tr>
+                <td>${i.id}</td>
+                <td>${i.name}</td>
+                <td class="descricao">${i.description}</td>
+                <td class="preco">R$: ${i.price.toFixed(2)}</td>
+                <td>${status}</td>
+                <td>${i.slug}</td>
+                <td class="blocos">${i.blocks} Blocos</td>
+                <td>+${i.age_min}</td>
+                <td>${i.stock}</td>
+                <td>${i.reserved_stock}</td>
+            </tr>
+        `
+            }
+        })
+}
+
+const search = document.getElementById('search')
+
+search.addEventListener('click', (e) => {
+    e.preventDefault()
+
+    const campo = document.getElementById('campoS').value
+
+    fetch('http://localhost:3000/product/search?s=' + campo, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
     })
+        .then(resp => resp.json())
+        .then(valores => {
+            console.log(valores);
+            // document.getElementById('table-create').style.display = 'flex'
+            const tbody = document.getElementById('listaProdutos-search')
+
+            tbody.innerHTML = ''
+            for (const i of valores) {
+                let status = ''
+
+                if (i.status) {
+                    status = 'ATIVO'
+                } else {
+                    status = 'INATIVO'
+                }
+
+                console.log(i.name)
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${i.id}</td>
+                        <td>${i.name}</td>
+                        <td class="descricao">${i.description}</td>
+                        <td class="preco">R$: ${i.price.toFixed(2)}</td>
+                        <td>${status}</td>
+                        <td>${i.slug}</td>
+                        <td class="blocos">${i.blocks} Blocos</td>
+                        <td>+${i.age_min}</td>
+                        <td>${i.stock}</td>
+                        <td>${i.reserved_stock}</td>
+                    </tr>
+                `
+            }
+
+        })
+})
+
+const update = document.getElementById('update')
+
+update.addEventListener('click', (e) => {
+    e.preventDefault()
+
+    const id = Number(document.getElementById('idU').value)
+    const name = document.getElementById('nomeU').value
+    const description = document.getElementById('descricaoU').value
+    const price = Number(document.getElementById('precoU').value)
+    const blocks = Number(document.getElementById('pecasU').value)
+    const age_min = Number(document.getElementById('idade_minimaU').value)
+    const status = Number(document.getElementById('statusU').checked)
+
+    console.log(status);
+
+
+    const dados = {
+        name,
+        description,
+        price,
+        blocks,
+        age_min,
+        status
+    }
+
+    Object.keys(dados).forEach(key => {
+        if (dados[key] === "" || dados[key] === null || dados[key] === 0) {
+            if (key != 'status') {
+                delete dados[key]
+            }
+        }
+    })
+
+    console.log(dados);
+
+    fetch('http://localhost:3000/product/' + id, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(dados)
+    })
+        .then(resp => resp.json())
+        .then(valores => {
+            console.log(valores);
+
+            if (valores.message) alert(valores.message)
+            const tbody = document.getElementById('listaProdutos-update')
+            let status = ''
+
+            if (valores.product.status) {
+                status = 'ATIVO'
+            } else {
+                status = 'INATIVO'
+            }
+
+            console.log(valores.product.name)
+
+            tbody.innerHTML += `
+            <tr>
+                <td>${valores.product.id}</td>
+                <td>${valores.product.name}</td>
+                <td class="descricao">${valores.product.description}</td>
+                <td class="preco">R$: ${valores.product.price.toFixed(2)}</td>
+                <td>${status}</td>
+                <td>${valores.product.slug}</td>
+                <td class="blocos">${valores.product.blocks} Blocos</td>
+                <td>+${valores.product.age_min}</td>
+                <td>${valores.product.stock}</td>
+                <td>${valores.product.reserved_stock}</td>
+            </tr>
+        `
+
+        })
+
+    read()
+})
+
+const delet = document.getElementById('delet')
+
+delet.addEventListener('click', (e) => {
+    e.preventDefault()
+
+    const id = Number(document.getElementById('idD').value)
+
+    const cofirm = confirm('Tem Certeza que desejá apagar esse Produto?')
+
+    if (cofirm) {
+        fetch('http://localhost:3000/product/' + id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        })
+            .then(resp => resp.json())
+            .then(valores => {
+                console.log(valores);
+
+                if (valores.message) alert(valores.message)
+                if (valores.messagem) alert(valores.messagem)
+                if (valores.error) alert(valores.error)
+                if (valores.erro) alert(valores.erro)
+            })
+    }
+
+    read()
+})

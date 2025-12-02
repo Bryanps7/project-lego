@@ -1,8 +1,16 @@
 @import "./config.css";
 
-/* .modal-input {
-    display: flex;
-} */
+.descricao {
+    max-width: 400px; /* ajuste como quiser */
+    width: 300px;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    /* text-overflow: ellipsis; coloca "..." no final */
+}
+
+.preco, .blocos {
+    width: 100px;
+}
 
 .modal-input label {
     position: absolute;
@@ -10,7 +18,7 @@
     margin-top: 5px;
 }
 
-.input {
+.input, .input2 {
     text-align: start;
 }
 
@@ -248,7 +256,7 @@ main .main-container .main-text h3 {
 
 .container-1600 {
     max-width: 1610px;
-    width: 100vw;
+    width: 80vw;
     margin: auto;
 }
 
