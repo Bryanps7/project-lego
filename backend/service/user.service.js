@@ -62,7 +62,9 @@ async function listUsers() {
 async function updateUser(id, ownId, dados) {
     const user = await User.findByPk(id)
 
-    dados.password = await hashSenha(dados.password)
+    if (dados.password) {
+        dados.password = await hashSenha(dados.password)
+    }
 
     if (!user) {
         throw new Error('Usuário não encontrado')
@@ -75,6 +77,32 @@ async function updateUser(id, ownId, dados) {
     await user.update(dados)
 
     return user
+}
+
+async function updateCoin(id, coin) {
+    const user = await User.findByPk(id)
+
+    if (!user) {
+        throw new Error('Usuário não encontrado')
+    }
+
+    let newCoin = 0;
+
+    if(coin > 0) {
+        newCoin = user.coin_points + coin
+    } else {
+        if(user.coin_points - coin >= 0) {
+            newCoin = user.coin_points - coin
+        } else {
+            throw new Error('Saldo insuficiente de pontos de moeda')
+        }
+    }
+
+    await user.update({
+        coin_points: coin
+    })
+
+    return user.coin_points
 }
 
 async function deleteUser(id, ownId) {
@@ -101,5 +129,6 @@ module.exports = {
     searchUsers,
     listUsers,
     updateUser,
+    updateCoin,
     deleteUser
 }

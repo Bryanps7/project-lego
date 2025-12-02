@@ -3,6 +3,7 @@ const {
     searchUsers,
     listUsers,
     updateUser,
+    updateCoin,
     deleteUser
 } = require('../service/user.service')
 
@@ -67,6 +68,26 @@ async function update(req, res) {
     }
 }
 
+async function updateCoin(req, res) {
+    const { id } = req.params
+    const coin = req.body.coin
+
+    try {
+        const coinUpdate = await updateCoin(id, coin)
+
+        return res.status(200).json({
+            message: 'Contagem de pontos atualizadas atualizado com sucesso',
+            coin: coinUpdate
+        })
+
+
+    } catch (err) {
+        return res.status(500).json({
+            error: err.message
+        })
+    }
+}
+
 async function delet(req, res) {
     const { id } = req.params
     const ownId = req.query.own
@@ -90,5 +111,6 @@ module.exports = {
     search,
     list,
     update,
+    updateCoin,
     delet
 }

@@ -10,7 +10,7 @@ const {
 
 // Midlewares
 const authMiddleware = require('../middleware/auth.middleware')
-const isAdminMiddleware = require('../middleware/isAdmin.middleware')
+const { isAdminMiddleware } = require('../middleware/isAdmin.middleware')
 
 router.post('/', authMiddleware, create)
 

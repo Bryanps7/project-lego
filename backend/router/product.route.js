@@ -12,7 +12,7 @@ const {
 
 // Middlewares
 const authMiddleware = require('../middleware/auth.middleware')
-const isAdminMiddleware = require('../middleware/isAdmin.middleware')
+const { isAdminMiddleware } = require('../middleware/isAdmin.middleware')
 
 // POST /produto
 router.post(
