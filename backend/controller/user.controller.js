@@ -1,5 +1,6 @@
 const {
     createUser,
+    createAdmin,
     searchUsers,
     listUsers,
     updateUser,
@@ -14,6 +15,21 @@ async function create(req, res) {
         return res.status(201).json({
             message: 'usuário criado com sucesso',
             ...user
+        })
+    } catch (err) {
+        return res.status(500).json({
+            error: err.message
+        })
+    }
+}
+
+async function creatAdmin(req, res) {
+    try {
+        const admin = await createAdmin(req.body)
+
+        return res.status(201).json({
+            message: 'administrador criado com sucesso',
+            ...admin
         })
     } catch (err) {
         return res.status(500).json({
@@ -68,7 +84,7 @@ async function update(req, res) {
     }
 }
 
-async function updateCoin(req, res) {
+async function updatCoin(req, res) {
     const { id } = req.params
     const coin = req.body.coin
 
@@ -108,9 +124,10 @@ async function delet(req, res) {
 
 module.exports = {
     create,
+    creatAdmin,
     search,
     list,
     update,
-    updateCoin,
+    updatCoin,
     delet
 }

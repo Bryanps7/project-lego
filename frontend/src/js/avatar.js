@@ -1,0 +1,7 @@
+const API = '/avatar'
+function getToken(){ return window.localStorage.getItem('token') }
+async function fetchList(){ const r=await fetch(API); render(await r.json()) }
+function render(items){ const b=document.querySelector('#table-list tbody'); b.innerHTML=''; items.forEach(i=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${i.id}</td><td>${i.name}</td><td><img src="${i.url}" style="height:40px"/></td><td><button data-id="${i.id}" class="del">Apagar</button></td>`; b.appendChild(tr) }) }
+async function create(e){ e.preventDefault(); const f=e.target; const body={ name:f.name.value, url:f.url.value }; const token=getToken(); const res=await fetch(API,{ method:'POST', headers:{ 'Content-Type':'application/json','Authorization': `Bearer ${token}` }, body: JSON.stringify(body) }); const j=await res.json(); if(!res.ok) alert(j.error||JSON.stringify(j)); else{ alert('Criado'); fetchList() } }
+
+document.addEventListener('DOMContentLoaded', ()=>{ document.getElementById('form-create').addEventListener('submit', create); document.querySelector('#table-list').addEventListener('click', async ev=>{ if(ev.target.matches('.del')){ const id=ev.target.dataset.id; const token=getToken(); if(!confirm('Apagar?')) return; const r=await fetch(`/avatar/${id}`,{ method:'DELETE', headers:{ 'Authorization': `Bearer ${token}` } }); const j=await r.json(); alert(j.message||j.error); fetchList(); } }); fetchList() })

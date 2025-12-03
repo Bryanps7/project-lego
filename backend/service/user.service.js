@@ -7,7 +7,7 @@ const { hashSenha } = require('../utils/bcrypt')
 
 async function createUser(dados) {
 
-    const { name, email, password, phone, cpf, access_level, coin_points } = dados
+    const { name, email, password, phone, cpf, coin_points, avatar_id } = dados
 
     if (!name || !email || !password) {
         throw new Error('nome e preço são obrigatórios')
@@ -23,6 +23,8 @@ async function createUser(dados) {
 
     const senhaBcrypt = await hashSenha(password)
 
+    const access_level = 'USER'
+
     const newUser = await User.create({
         name,
         email,
@@ -30,10 +32,45 @@ async function createUser(dados) {
         phone,
         cpf,
         access_level,
-        coin_points
+        coin_points,
+        avatar_id
     })
 
-    return { ok: true }
+    return newUser
+}
+
+async function createAdmin(dados) {
+
+    const { name, email, password, phone, cpf, coin_points, avatar_id } = dados
+
+    if (!name || !email || !password || !phone || !cpf ) {
+        throw new Error('nome e preço são obrigatórios')
+    }
+
+    if (!validaEmail(email)) {
+        throw new Error('Email inválido')
+    }
+
+    if (!validaCPF(cpf)) {
+        throw new Error('CPF inválido')
+    }
+
+    const senhaBcrypt = await hashSenha(password)
+
+    const access_level = 'ADMIN'
+
+    const newAdmin = await User.create({
+        name,
+        email,
+        password: senhaBcrypt,
+        phone,
+        cpf,
+        access_level,
+        coin_points,
+        avatar_id
+    })
+
+    return newAdmin
 }
 
 async function searchUsers(search) {
@@ -46,6 +83,7 @@ async function searchUsers(search) {
     const users = await User.findAll({
         where: {
             [Op.or]: [
+                { id: { [Op.like]: `${search}` } },
                 { name: { [Op.like]: `%${search}%` } },
                 { email: { [Op.like]: `%${search}%` } }
             ]
@@ -126,6 +164,7 @@ async function deleteUser(id, ownId) {
 
 module.exports = {
     createUser,
+    createAdmin,
     searchUsers,
     listUsers,
     updateUser,

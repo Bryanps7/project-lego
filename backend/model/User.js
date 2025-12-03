@@ -56,14 +56,15 @@ const User = db.define('User', {
         defaultValue: 0,
         allowNull: false
     },
-    // avatar_id: { // ID do avatar do usuário
-    //     type: DataTypes.INTEGER,
-    //     allowNull: true,
-    //     references: {
-    //         model: 'avatars',
-    //         key: 'id'
-    //     },
-    // },
+    avatar_id: { // ID do avatar do usuário
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: null,
+        references: {
+            model: 'avatars',
+            key: 'id'
+        },
+    }
 }, {
     tableName: 'users',
     timestamps: true,

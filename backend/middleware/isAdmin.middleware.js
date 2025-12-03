@@ -1,16 +1,10 @@
 function isAdminMiddleware(req, res, next) {
-
-
-    // console.log('[ADMIN MIDDLEWARE] - Checando se usuário é admin...')
-    // console.log('[ADMIN MIDDLEWARE] - req.user recebido:')
-    // console.log(req.user)
-
     if (!req.user) {
         console.log('[ADMIN MIDDLEWARE] - Usuário não autenticado!')
         return res.status(401).json({ erro: 'Usuário não autenticado' })
     }
 
-    if (!req.user.access_level || req.user.access_level.toUpperCase() !== 'ADMIN') {
+    if (!req.user.access_level || (req.user.access_level.toUpperCase() !== 'ADMIN' && req.user.access_level.toUpperCase() !== 'OWNER')) {
         console.log('[ADMIN MIDDLEWARE] - Usuário não é administrador!')
         return res.status(403).json({ erro: 'Acesso permitido somente para administradores' })
     }

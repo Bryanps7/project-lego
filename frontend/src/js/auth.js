@@ -24,6 +24,8 @@ window.addEventListener('load', (e)=>{
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <button type="button"
+                    class="btn btn-primary w-100 border border-primary mb-2" href="./usuario.html">Acessar Conta</button>
                 <button onclick="logout()" type="button"
                     class="btn btn-primary w-100 border border-primary mb-2">Sair</button>
                 <div id="res-login"></div>

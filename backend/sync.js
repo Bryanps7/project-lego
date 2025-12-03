@@ -1,7 +1,17 @@
-const {
-    Product,
-    Sale_item,
-    Sale,
+const { 
+    // Address,
+    // Avatar,
+    // Cart_item,
+    // Cart,
+    // Category,
+    // Coupon,
+    // Image,
+    // Log,
+    // Payment,
+    // Product,
+    // Sale,
+    // Sale_item,
+    // Stock,
     User
 } = require('./model/rel')
 

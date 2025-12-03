@@ -4,11 +4,9 @@ const { gerarSlug } = require('../utils/function')
 
 async function createProduct(dados) {
 
+    const { name, description, price, blocks, age_min, avaliation, stock, category_id } = dados
 
-
-    const { name, description, price, blocks, age_min, avaliation, stock } = dados
-
-    if (!name || !price || !blocks || !age_min || !stock) {
+    if (!name || !price || !blocks || !age_min || !stock || !category_id) {
         throw new Error('Dados incompletos para criar o produto')
     }
 
@@ -24,7 +22,8 @@ async function createProduct(dados) {
         blocks,
         age_min,
         avaliation,
-        stock
+        stock,
+        category_id
     })
 
     return newProduct

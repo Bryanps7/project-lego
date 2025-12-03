@@ -7,28 +7,16 @@ create.addEventListener('click', (e) => {
 
     const name = document.getElementById('nomeC').value
     const description = document.getElementById('descricaoC').value
-    const price = Number(document.getElementById('precoC').value)
-    const blocks = Number(document.getElementById('pecasC').value)
-    const age_min = Number(document.getElementById('idade_minimaC').value)
-    const stock = Number(document.getElementById('estoqueC').value)
-    const category_id = Number(document.getElementById('categoriaC').value)
 
-    console.log(category_id);
-    
 
     const dados = {
         name,
         description,
-        price,
-        blocks,
-        age_min,
-        stock,
-        category_id
     }
 
     console.log(dados);
 
-    fetch('http://localhost:3000/product', {
+    fetch('http://localhost:3000/category', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -39,34 +27,26 @@ create.addEventListener('click', (e) => {
         .then(resp => resp.json())
         .then(valores => {
             console.log(valores);
-            // document.getElementById('table-create').style.display = 'flex'
-            const tbody = document.getElementById('listaProdutos-create')
+            const tbody = document.getElementById('listaCategorias-create')
             let status = ''
 
-            if (valores.product.status) {
+            if (valores.category.is_active) {
                 status = 'ATIVO'
             } else {
                 status = 'INATIVO'
             }
 
-            console.log(valores.product.name)
+            console.log(valores.category.name)
 
             tbody.innerHTML += `
-            <tr>
-                <td>${valores.product.id}</td>
-                <td>${valores.product.name}</td>
-                <td class="descricao">${valores.product.description}</td>
-                <td class="preco">R$: ${valores.product.price.toFixed(2)}</td>
-                <td>${status}</td>
-                <td>${valores.product.slug}</td>
-                <td class="blocos">${valores.product.blocks} Blocos</td>
-                <td>+${valores.product.age_min}</td>
-                <td>${valores.product.stock}</td>
-                <td>${valores.product.reserved_stock}</td>
-                <td>${valores.product.category_id}</td>
-            </tr>
-        `
-
+                <tr>
+                    <td>${valores.category.id}</td>
+                    <td>${valores.category.name}</td>
+                    <td class="descricao">${valores.category.description}</td>
+                    <td>${valores.category.slug}</td>
+                    <td>${status}</td>
+                </tr>
+            `
         })
 
     read()
@@ -75,18 +55,19 @@ create.addEventListener('click', (e) => {
 window.addEventListener('load', (e) => { e.preventDefault(), read() })
 
 async function read() {
-    fetch('http://localhost:3000/product/admin', {
+    fetch('http://localhost:3000/category', {
         headers: {
             'Authorization': 'Bearer ' + token
         }
     })
         .then(resp => resp.json())
         .then(valores => {
-            const tbody = document.getElementById('listaProdutos-read')
+            const tbody = document.getElementById('listaCategorias-read')
+            tbody.innerHTML = ''
             for (const i of valores) {
                 let status = ''
 
-                if (i.status) {
+                if (i.is_active) {
                     status = 'ATIVO'
                 } else {
                     status = 'INATIVO'
@@ -97,13 +78,8 @@ async function read() {
                 <td>${i.id}</td>
                 <td>${i.name}</td>
                 <td class="descricao">${i.description}</td>
-                <td class="preco">R$: ${i.price.toFixed(2)}</td>
-                <td>${status}</td>
                 <td>${i.slug}</td>
-                <td class="blocos">${i.blocks} Blocos</td>
-                <td>+${i.age_min}</td>
-                <td>${i.stock}</td>
-                <td>${i.reserved_stock}</td>
+                <td>${status}</td>
             </tr>
         `
             }
@@ -117,7 +93,7 @@ search.addEventListener('click', (e) => {
 
     const campo = document.getElementById('campoS').value
 
-    fetch('http://localhost:3000/product/search?s=' + campo, {
+    fetch('http://localhost:3000/category/search?s=' + campo, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -127,14 +103,13 @@ search.addEventListener('click', (e) => {
         .then(resp => resp.json())
         .then(valores => {
             console.log(valores);
-            // document.getElementById('table-create').style.display = 'flex'
-            const tbody = document.getElementById('listaProdutos-search')
+            const tbody = document.getElementById('listaCategorias-search')
 
             tbody.innerHTML = ''
             for (const i of valores) {
                 let status = ''
 
-                if (i.status) {
+                if (i.is_active) {
                     status = 'ATIVO'
                 } else {
                     status = 'INATIVO'
@@ -147,13 +122,8 @@ search.addEventListener('click', (e) => {
                         <td>${i.id}</td>
                         <td>${i.name}</td>
                         <td class="descricao">${i.description}</td>
-                        <td class="preco">R$: ${i.price.toFixed(2)}</td>
-                        <td>${status}</td>
                         <td>${i.slug}</td>
-                        <td class="blocos">${i.blocks} Blocos</td>
-                        <td>+${i.age_min}</td>
-                        <td>${i.stock}</td>
-                        <td>${i.reserved_stock}</td>
+                        <td>${status}</td>
                     </tr>
                 `
             }
@@ -169,9 +139,6 @@ update.addEventListener('click', (e) => {
     const id = Number(document.getElementById('idU').value)
     const name = document.getElementById('nomeU').value
     const description = document.getElementById('descricaoU').value
-    const price = Number(document.getElementById('precoU').value)
-    const blocks = Number(document.getElementById('pecasU').value)
-    const age_min = Number(document.getElementById('idade_minimaU').value)
     const status = Number(document.getElementById('statusU').checked)
 
     console.log(status);
@@ -180,9 +147,6 @@ update.addEventListener('click', (e) => {
     const dados = {
         name,
         description,
-        price,
-        blocks,
-        age_min,
         status
     }
 
@@ -196,7 +160,7 @@ update.addEventListener('click', (e) => {
 
     console.log(dados);
 
-    fetch('http://localhost:3000/product/' + id, {
+    fetch('http://localhost:3000/category/' + id, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -209,29 +173,24 @@ update.addEventListener('click', (e) => {
             console.log(valores);
 
             if (valores.message) alert(valores.message)
-            const tbody = document.getElementById('listaProdutos-update')
+            const tbody = document.getElementById('listaCategorias-update')
             let status = ''
 
-            if (valores.product.status) {
+            if (valores.category.is_active) {
                 status = 'ATIVO'
             } else {
                 status = 'INATIVO'
             }
 
-            console.log(valores.product.name)
+            console.log(valores.category.name)
 
             tbody.innerHTML += `
             <tr>
-                <td>${valores.product.id}</td>
-                <td>${valores.product.name}</td>
-                <td class="descricao">${valores.product.description}</td>
-                <td class="preco">R$: ${valores.product.price.toFixed(2)}</td>
+                <td>${valores.category.id}</td>
+                <td>${valores.category.name}</td>
+                <td class="descricao">${valores.category.description}</td>
+                <td>${valores.category.slug}</td>
                 <td>${status}</td>
-                <td>${valores.product.slug}</td>
-                <td class="blocos">${valores.product.blocks} Blocos</td>
-                <td>+${valores.product.age_min}</td>
-                <td>${valores.product.stock}</td>
-                <td>${valores.product.reserved_stock}</td>
             </tr>
         `
 
@@ -250,7 +209,7 @@ delet.addEventListener('click', (e) => {
     const cofirm = confirm('Tem Certeza que desejá apagar esse Produto?')
 
     if (cofirm) {
-        fetch('http://localhost:3000/product/' + id, {
+        fetch('http://localhost:3000/category/' + id, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

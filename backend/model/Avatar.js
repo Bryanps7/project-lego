@@ -13,7 +13,10 @@ const Avatar = db.define('Avatar', {
     },
     url: { // URL do avatar
         type: DataTypes.STRING,
-        allowNull: false 
+        allowNull: false,
+        validate: {
+            isUrl: true
+        }
     }
 }, {
     tableName: 'avatars',

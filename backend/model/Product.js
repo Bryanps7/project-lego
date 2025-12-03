@@ -64,15 +64,15 @@ const Product = db.define('Product', {
         type: DataTypes.INTEGER,
         allowNull: true,
         defaultValue: 0
+    },
+    category_id: { // ID da categoria do produto
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'categories',
+            key: 'id'
+        },
     }
-    // category_id: { // ID da categoria do produto
-    //     type: DataTypes.INTEGER,
-    //     allowNull: false,
-    //     references: {
-    //         model: 'categories',
-    //         key: 'id'
-    //     },
-    // }
 
 }, {
     tableName: 'products',
