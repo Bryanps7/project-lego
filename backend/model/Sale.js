@@ -15,6 +15,14 @@ const Sale = db.define('Sale', {
             key: 'id'
         }
     },
+    address_id: { // ID do endereço de entrega
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'addresses',
+            key: 'id'
+        }
+    },
     coupon_id: { // ID do cupom aplicado na compra (se houver)
         type: DataTypes.INTEGER,
         allowNull: true,

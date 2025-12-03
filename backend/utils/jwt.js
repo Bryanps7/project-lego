@@ -12,7 +12,7 @@ function verificarToken(token){
     try{
         return jwt.verify(token,SEGREDO)
     }catch(err){
-        console.error('Erro ao verificar o token')
+        console.error('Erro ao verificar o token:', err.message)
         return null
     }
 }

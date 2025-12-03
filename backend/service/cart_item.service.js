@@ -11,10 +11,10 @@ async function createCartItem(user_id, dados) {
         throw new Error('Dados incompletos ou inválidos para adicionar ao carrinho')
     }
 
-    // Verifica se o usuário tem um carrinho
-    const cart = await Cart.findOne({ where: { user_id } })
+    // Verifica se o usuário tem um carrinho, se não, cria um
+    let cart = await Cart.findOne({ where: { user_id } })
     if (!cart) {
-        throw new Error('Carrinho não encontrado para este usuário')
+        cart = await Cart.create({ user_id, total_price: 0.00 })
     }
 
     // Pega preço do produto

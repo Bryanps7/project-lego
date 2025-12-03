@@ -2,9 +2,9 @@ const Sale = require('../model/Sale')
 
 async function createSale(dados) {
 
-    const { user_id, freight, subtotal } = dados
+    const { user_id, address_id, freight, subtotal } = dados
 
-    if (!user_id || !freight || !subtotal) {
+    if (!user_id || !address_id || !freight || !subtotal) {
         throw new Error('Dados incompletos para registrar a compra')
     }
 
@@ -13,6 +13,7 @@ async function createSale(dados) {
 
     const newSale = await Sale.create({
         user_id,
+        address_id,
         status,
         freight,
         subtotal,

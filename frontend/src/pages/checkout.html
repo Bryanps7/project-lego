@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/footer.css">
 
-    <title>Loja Não Oficial LEGO BR</title>
+    <title>Checkout - Loja Não Oficial LEGO BR</title>
 
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
@@ -36,7 +36,7 @@
     <script src="../js/carousels.mjs" type="module"></script>
     <script src="../js/footer.js" defer></script>
     <script src="../js/component.js"></script>
-    <script src="../js/cart.js" defer></script>
+    <script src="../js/checkout.js" defer></script>
 </head>
 
 <body>
@@ -49,59 +49,133 @@
             srcset="../../public/assets/img/1804-REVEAL-Home-202211-Hero1-Standard-Small.webp">
         <div class="main-container z-index-1 py-1 pt-md-4 py-sm-5 pb-0 pb-lg-4">
             <div class="main-text">
-                <h1 class="text-center d-none d-xs-block d-md-block">E-coomerce</h1>
-                <h3 class="text-center fw-normal px-3">Esse sistema é um projeto educacional. <br
-                        class="d-none d-lg-block"> sem o intuito de lucrar em cima da empresa LEGO®</h3>
+                <h1 class="text-center d-none d-xs-block d-md-block">Checkout</h1>
+                <h3 class="text-center fw-normal px-3">Finalize sua compra de forma segura</h3>
             </div>
         </div>
     </main>
 
-    <!-- Carrinho -->
+    <!-- Checkout -->
     <div class="container-1600 my-5 pt-3 text-light">
-
-        <h2 class="mb-4 ps-3 ps-xxl-5">Seu Carrinho</h2>
-
         <div class="row g-4">
-
-            <!-- Lista de itens -->
+            <!-- Formulário de checkout -->
             <div class="col-lg-8">
+                <div class="card bg-dark text-light p-4 mb-4">
+                    <h4 class="border-bottom pb-2 mb-3">Endereço de Entrega</h4>
+                    <div id="addresses-list">
+                        <!-- Endereços serão carregados aqui -->
+                    </div>
+                    <button class="btn btn-outline-light mt-3" onclick="showAddAddressForm()">Adicionar Novo Endereço</button>
+                </div>
 
-                <!-- Itens do carrinho serão carregados aqui via JS -->
+                <div class="card bg-dark text-light p-4 mb-4" id="address-form" style="display: none;">
+                    <h5>Adicionar Endereço</h5>
+                    <form id="new-address-form">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="cep" class="form-label">CEP</label>
+                                <input type="text" class="form-control" id="cep" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="street" class="form-label">Rua</label>
+                                <input type="text" class="form-control" id="street" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="number" class="form-label">Número</label>
+                                <input type="text" class="form-control" id="number" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="complement" class="form-label">Complemento</label>
+                                <input type="text" class="form-control" id="complement">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="neighborhood" class="form-label">Bairro</label>
+                                <input type="text" class="form-control" id="neighborhood" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="city" class="form-label">Cidade</label>
+                                <input type="text" class="form-control" id="city" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="state" class="form-label">Estado</label>
+                                <input type="text" class="form-control" id="state" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="nickname" class="form-label">Apelido</label>
+                                <input type="text" class="form-control" id="nickname" placeholder="Ex: Casa, Trabalho">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-warning">Salvar Endereço</button>
+                        <button type="button" class="btn btn-secondary ms-2" onclick="hideAddAddressForm()">Cancelar</button>
+                    </form>
+                </div>
 
+                <div class="card bg-dark text-light p-4">
+                    <h4 class="border-bottom pb-2 mb-3">Método de Pagamento</h4>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment-method" id="credit-card" value="credit_card" checked>
+                            <label class="form-check-label" for="credit-card">
+                                Cartão de Crédito
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment-method" id="pix" value="pix">
+                            <label class="form-check-label" for="pix">
+                                PIX
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment-method" id="bank-transfer" value="bank_transfer">
+                            <label class="form-check-label" for="bank-transfer">
+                                Transferência Bancária
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Resumo da compra -->
+            <!-- Resumo do pedido -->
             <div class="col-lg-4">
                 <div class="card bg-dark text-light p-4">
+                    <h4 class="border-bottom pb-2 mb-3">Resumo do Pedido</h4>
 
-                    <h4 class="border-bottom pb-2 mb-3">Resumo do pedido</h4>
+                    <div id="checkout-items">
+                        <!-- Itens serão carregados aqui -->
+                    </div>
+
+                    <hr>
 
                     <div class="d-flex justify-content-between mb-2">
                         <span>Subtotal:</span>
-                        <span id="subtotal">R$ 549,89</span>
+                        <span id="checkout-subtotal">R$ 0,00</span>
                     </div>
 
                     <div class="d-flex justify-content-between mb-2">
                         <span>Frete:</span>
-                        <span id="frete">R$ 19,90</span>
+                        <span id="checkout-frete">R$ 19,90</span>
                     </div>
 
                     <hr>
 
                     <div class="d-flex justify-content-between fs-5 fw-bold mb-3">
                         <span>Total:</span>
-                        <span id="total">R$ 569,79</span>
+                        <span id="checkout-total">R$ 0,00</span>
                     </div>
 
-                    <button class="btn btn-warning w-100 fw-bold py-2 mt-3" onclick="goToCheckout()">
+                    <button class="btn btn-warning w-100 fw-bold py-2 mt-3" onclick="finalizePurchase()">
                         Finalizar Compra
                     </button>
                 </div>
             </div>
-
         </div>
     </div>
-
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

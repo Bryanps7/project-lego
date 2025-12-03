@@ -10,7 +10,7 @@ const {
 // USUÁRIO
 async function create(req, res) {
     try {
-        const user_id = req.body.user_id
+        const user_id = req.user.id
         const address = await createAddress(user_id, req.body)
 
         return res.status(201).json({
@@ -24,7 +24,7 @@ async function create(req, res) {
 
 async function readOwn(req, res) {
     try {
-        const user_id = req.query.u
+        const user_id = req.user.id
         const addresses = await readUserAddresses(user_id)
 
         return res.status(200).json(addresses)

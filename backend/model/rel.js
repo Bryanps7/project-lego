@@ -260,6 +260,23 @@ Coupon.hasMany(Sale, {
 })
 // --------------------------------------------
 
+// Sale N : 1 Address
+Sale.belongsTo(Address, {
+    foreignKey: {
+        name: 'address_id',
+        allowNull: false
+    },
+    as: 'addressSale',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+Address.hasMany(Sale, {
+    foreignKey: 'address_id',
+    as: 'saleAddress'
+})
+// --------------------------------------------
+
 // Sale 1 : 1 Payment
 Sale.hasOne(Payment, {
     foreignKey: 'sale_id',

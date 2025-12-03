@@ -196,6 +196,10 @@ async function finalizePurchase() {
 document.addEventListener('DOMContentLoaded', () => {
     const finalizeBtn = document.querySelector('.btn-warning');
     if (finalizeBtn) {
-        finalizeBtn.addEventListener('click', finalizePurchase);
+        finalizeBtn.addEventListener('click', goToCheckout);
     }
 });
+
+function goToCheckout() {
+    window.location.href = 'checkout.html';
+}
