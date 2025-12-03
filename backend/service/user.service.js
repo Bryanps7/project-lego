@@ -5,12 +5,15 @@ const { validaEmail, validaTelefone, validaCPF } = require('../utils/validacao')
 
 const { hashSenha } = require('../utils/bcrypt')
 
+const { createAddress } = require('./address.service')
+const { createCart } = require('./Cart.service')
+
 async function createUser(dados) {
 
-    const { name, email, password, phone, cpf, coin_points, avatar_id } = dados
+    const { name, email, password, phone, cpf, coin_points, avatar_id, address } = dados
 
     if (!name || !email || !password) {
-        throw new Error('nome e preço são obrigatórios')
+        throw new Error('Nome, email e senha são obrigatórios')
     }
 
     if (!validaEmail(email)) {
@@ -19,6 +22,11 @@ async function createUser(dados) {
 
     if (!validaCPF(cpf)) {
         throw new Error('CPF inválido')
+    }
+
+    // Validar dados do endereço se fornecidos
+    if (!address || !address.cep || !address.number) {
+        throw new Error('Dados do endereço são obrigatórios (CEP e número)')
     }
 
     const senhaBcrypt = await hashSenha(password)
@@ -40,15 +48,33 @@ async function createUser(dados) {
         avatar_id
     })
 
+    // Criar endereço para o usuário
+    try {
+        await createAddress(newUser.id, address)
+    } catch (error) {
+        // Se falhar ao criar endereço, deletar usuário criado
+        await newUser.destroy()
+        throw new Error('Erro ao criar endereço: ' + error.message)
+    }
+
+    // Criar carrinho para o usuário
+    try {
+        await createCart(newUser.id)
+    } catch (error) {
+        // Se falhar ao criar carrinho, deletar usuário e endereço criados
+        await newUser.destroy()
+        throw new Error('Erro ao criar carrinho: ' + error.message)
+    }
+
     return newUser
 }
 
 async function createAdmin(dados) {
 
-    const { name, email, password, phone, cpf, coin_points, avatar_id } = dados
+    const { name, email, password, phone, cpf, coin_points, avatar_id, address } = dados
 
     if (!name || !email || !password || !phone || !cpf ) {
-        throw new Error('nome e preço são obrigatórios')
+        throw new Error('Nome, email, senha, telefone e CPF são obrigatórios')
     }
 
     if (!validaEmail(email)) {
@@ -57,6 +83,11 @@ async function createAdmin(dados) {
 
     if (!validaCPF(cpf)) {
         throw new Error('CPF inválido')
+    }
+
+    // Validar dados do endereço se fornecidos
+    if (!address || !address.cep || !address.number) {
+        throw new Error('Dados do endereço são obrigatórios (CEP e número)')
     }
 
     const senhaBcrypt = await hashSenha(password)
@@ -73,6 +104,24 @@ async function createAdmin(dados) {
         coin_points,
         avatar_id
     })
+
+    // Criar endereço para o admin
+    try {
+        await createAddress(newAdmin.id, address)
+    } catch (error) {
+        // Se falhar ao criar endereço, deletar admin criado
+        await newAdmin.destroy()
+        throw new Error('Erro ao criar endereço: ' + error.message)
+    }
+
+    // Criar carrinho para o admin
+    try {
+        await createCart(newAdmin.id)
+    } catch (error) {
+        // Se falhar ao criar carrinho, deletar admin e endereço criados
+        await newAdmin.destroy()
+        throw new Error('Erro ao criar carrinho: ' + error.message)
+    }
 
     return newAdmin
 }

@@ -1,9 +1,61 @@
 const Address = require('../model/Address')
 const { Op } = require('sequelize')
+const https = require('https')
+
+// Função para buscar endereço via ViaCEP
+async function fetchAddressFromViaCEP(cep) {
+    return new Promise((resolve, reject) => {
+        const url = `https://viacep.com.br/ws/${cep}/json/`
+
+        https.get(url, (res) => {
+            let data = ''
+
+            res.on('data', (chunk) => {
+                data += chunk
+            })
+
+            res.on('end', () => {
+                try {
+                    const addressData = JSON.parse(data)
+
+                    if (addressData.erro) {
+                        reject(new Error('CEP não encontrado'))
+                        return
+                    }
+
+                    resolve({
+                        cep: addressData.cep.replace('-', ''),
+                        street: addressData.logradouro,
+                        complement: addressData.complemento,
+                        neighborhood: addressData.bairro,
+                        city: addressData.localidade,
+                        state: addressData.uf,
+                        country: 'Brasil'
+                    })
+                } catch (error) {
+                    reject(new Error('Erro ao processar resposta do ViaCEP: ' + error.message))
+                }
+            })
+        }).on('error', (error) => {
+            reject(new Error('Erro ao buscar endereço via ViaCEP: ' + error.message))
+        })
+    })
+}
 
 // USUÁRIO NORMAL
 async function createAddress(user_id, dados) {
-    const { cep, street, complement, neighborhood, city, state, number, nickname, is_primary, country } = dados
+    let { cep, street, complement, neighborhood, city, state, number, nickname, is_primary, country } = dados
+
+    // Se apenas CEP for fornecido, buscar dados via ViaCEP
+    if (cep && !street && !neighborhood && !city && !state) {
+        const viaCepData = await fetchAddressFromViaCEP(cep)
+        street = viaCepData.street
+        complement = viaCepData.complement || complement
+        neighborhood = viaCepData.neighborhood
+        city = viaCepData.city
+        state = viaCepData.state
+        country = viaCepData.country
+    }
 
     if (!cep || !street || !neighborhood || !city || !state || !number || !country) {
         throw new Error('Dados incompletos para criar o endereço')
@@ -113,7 +165,8 @@ module.exports = {
     readUserAddresses,
     updateAddress,
     deleteAddress,
+    fetchAddressFromViaCEP,
     // Admin
     listAllAddresses,
     searchAddresses
-} 
+}

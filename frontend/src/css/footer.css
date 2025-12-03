@@ -1,7 +1,7 @@
 footer {
     background-color: rgb(32, 29, 72);
     width: 100vw;
-    position: absolute;
+    position: relative;
     left: 0%;
 }
 
@@ -110,4 +110,40 @@ footer .accordion-button:not(.collapsed) {
         width: 4.375rem;
         height: 4.375rem;
     }
+}
+
+/* Weather search and info styles */
+.weather-search {
+    animation: fadeIn 0.3s ease-in;
+}
+
+.weather-info {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.weather-info img {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.weather-search input {
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+}
+
+.weather-search button {
+    background-color: #007bff;
+    border: none;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease;
+}
+
+.weather-search button:hover {
+    background-color: #0056b3;
 }

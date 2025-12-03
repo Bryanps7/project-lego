@@ -107,3 +107,20 @@ window.addEventListener("click", () => {
 // toggleShow(btnAiuto, aiuto);
 // toggleShow(btnScopri, scopri);
 
+/* Search bar toggle */
+const searchBtn = document.querySelector('.search-btn');
+const searchInput = document.getElementById('desktop-search-search-input');
+const searchX = document.querySelector('.x-src');
+
+if (searchBtn && searchInput && searchX) {
+    searchBtn.addEventListener('click', () => {
+        searchInput.classList.toggle('d-none');
+        searchX.classList.toggle('d-none');
+    });
+
+    searchX.addEventListener('click', () => {
+        searchInput.classList.add('d-none');
+        searchX.classList.add('d-none');
+    });
+}
+
