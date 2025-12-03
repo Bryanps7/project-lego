@@ -1,16 +1,16 @@
-// const Address = require('./Address');
-// const Avatar = require('./Avatar');
-// const Cart_item = require('./Cart_item');
-// const Cart = require('./Cart');
-// const Category = require('./Category');
-// const Coupon = require('./Coupon');
+const Address = require('./Address');
+const Avatar = require('./Avatar');
+const Cart_item = require('./Cart_item');
+const Cart = require('./Cart');
+const Category = require('./Category');
+const Coupon = require('./Coupon');
 // const Image = require('./Image');
-// const Log = require('./Log');
-// const Payment = require('./Payment');
-// const Product = require('./Product');
-// const Sale = require('./Sale');
-// const Sale_item = require('./Sale_item');
-// const Stock = require('./Stock');
+const Log = require('./Log');
+const Payment = require('./Payment');
+const Product = require('./Product');
+const Sale = require('./Sale');
+const Sale_item = require('./Sale_item');
+const Stock = require('./Stock');
 const User = require('./User');
 
 // ============================================
@@ -224,20 +224,20 @@ Stock.belongsTo(Product, {
 // --------------------------------------------
 
 // Product 1 : N Image
-Product.hasMany(Image, {
-    foreignKey: 'product_id',
-    as: 'imageProduct',
-})
+// Product.hasMany(Image, {
+//     foreignKey: 'product_id',
+//     as: 'imageProduct',
+// })
 
-Image.belongsTo(Product, {
-    foreignKey: {
-        name: 'product_id',
-        allowNull: false
-    },
-    as: 'productImage',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-})
+// Image.belongsTo(Product, {
+//     foreignKey: {
+//         name: 'product_id',
+//         allowNull: false
+//     },
+//     as: 'productImage',
+//     onDelete: 'CASCADE',
+//     onUpdate: 'CASCADE'
+// })
 // --------------------------------------------
 // ============================================
 
@@ -279,18 +279,18 @@ Payment.belongsTo(Sale, {
 // ============================================
 
 module.exports = { 
-    // Address,
-    // Avatar,
-    // Cart_item,
-    // Cart,
-    // Category,
-    // Coupon,
+    Address,
+    Avatar,
+    Cart_item,
+    Cart,
+    Category,
+    Coupon,
     // Image,
-    // Log,
-    // Payment,
-    // Product,
-    // Sale,
-    // Sale_item,
-    // Stock,
+    Log,
+    Payment,
+    Product,
+    Sale,
+    Sale_item,
+    Stock,
     User
 };

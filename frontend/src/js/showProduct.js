@@ -23,7 +23,7 @@ fetch('http://localhost:3000/product')
                                 <p class="fs-7 fw-bold ps-2 mt-1">Adicionar à lista de desejos</p>
                             </div>
                             <div class="w-75 m-auto">
-                                <img class="w-100 radius-0" src="../../public/assets/img/76210.webp" alt="">
+                                <img class="w-100 radius-0" src="${dado.image_url}" alt="">
                             </div>
                             <button class="yellow-btn position-absolute bottom-0 mb-2 ms-2">
                                 Exclusivo
@@ -39,7 +39,11 @@ fetch('http://localhost:3000/product')
                                 <img class="p-0" src="../../public/assets/svg/fullstar.svg" alt="full star">
                             </div>
                             <h5 class="fw-bolder">R$: ${dado.price.toFixed(2)}</h5>
-                            <button class="add-cart-btn w-100">
+                            <button class="add-cart-btn w-100" onclick="addCarrinho('${dado.nome}')" id="${dado.name}"
+                                data-id="${dado.id}"
+                                data-name="${dado.name}"
+                                data-price="${dado.price}"
+                                data-image-url="${dado.image_url}">
                                 Adicionar ao Carrinho
                             </button>
                         </div>
@@ -49,6 +53,10 @@ fetch('http://localhost:3000/product')
         }
 
     })
-    .catch((err)=>{
-        console.error(err.message);  
+    .catch((err) => {
+        console.error(err.message);
     })
+
+function addCarrinho(nome) {
+    console.log(document.getElementById(nome));
+}

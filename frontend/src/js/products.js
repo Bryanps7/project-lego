@@ -104,6 +104,7 @@ async function read() {
                 <td>+${i.age_min}</td>
                 <td>${i.stock}</td>
                 <td>${i.reserved_stock}</td>
+                <td>${i.category_id}</td>
             </tr>
         `
             }

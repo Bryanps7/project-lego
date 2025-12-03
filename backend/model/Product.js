@@ -72,6 +72,13 @@ const Product = db.define('Product', {
             model: 'categories',
             key: 'id'
         },
+    },
+    image_url: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            isUrl: true
+        }
     }
 
 }, {

@@ -90,19 +90,20 @@ bigCollapseButtons.forEach(el => {
     })
 })
 
-function toggleShow(btn, menu) {
-    btn.addEventListener("click", () => {
-        allCollapse.forEach(el => {
-            el.classList.remove("show");
-        })
-        menu.classList.add("show");
-    })
-}
+// function toggleShow(btn, menu) {
+//     btn.addEventListener("click", () => {
+//         allCollapse.forEach(el => {
+//             el.classList.remove("show");
+//         })
+//         menu.classList.add("show");
+//     })
+// }
+
 window.addEventListener("click", () => {
     underlineButtons()
 })
 
-toggleShow(btnAcquista, acquista);
-toggleShow(btnAiuto, aiuto);
-toggleShow(btnScopri, scopri);
+// toggleShow(btnAcquista, acquista);
+// toggleShow(btnAiuto, aiuto);
+// toggleShow(btnScopri, scopri);
 
