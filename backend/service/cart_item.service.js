@@ -53,7 +53,13 @@ async function listUserCartItems(user_id) {
         throw new Error('Carrinho não encontrado para este usuário')
     }
 
-    const items = await Cart_item.findAll({ where: { cart_id: cart.id } })
+    const items = await Cart_item.findAll({
+        where: { cart_id: cart.id },
+        include: [{
+            model: Product,
+            as: 'productCart_item'
+        }]
+    })
 
     return items
 }

@@ -39,7 +39,8 @@ fetch('http://localhost:3000/product')
                                 <img class="p-0" src="../../public/assets/svg/fullstar.svg" alt="full star">
                             </div>
                             <h5 class="fw-bolder">R$: ${dado.price.toFixed(2)}</h5>
-                            <button class="add-cart-btn w-100" onclick="addCarrinho('${dado.nome}')" id="${dado.name}"
+                            <input id="quant-${dado.id}" type="number" min="1" value="1" class="form-control mb-2">
+                            <button class="add-cart-btn w-100 btn btn-primary" onclick="addCarrinho('${dado.id}')" id="btn-${dado.id}"
                                 data-id="${dado.id}"
                                 data-name="${dado.name}"
                                 data-price="${dado.price}"
@@ -57,6 +58,43 @@ fetch('http://localhost:3000/product')
         console.error(err.message);
     })
 
-function addCarrinho(nome) {
-    console.log(document.getElementById(nome));
+async function addCarrinho(productId) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        alert('Você precisa estar logado para adicionar ao carrinho');
+        return;
+    }
+
+    const quantityInput = document.getElementById(`quant-${productId}`);
+    const quantity = parseInt(quantityInput.value) || 1;
+
+    if (quantity <= 0) {
+        alert('Quantidade deve ser maior que 0');
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:3000/cart-item', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                quantity: quantity
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert('Produto adicionado ao carrinho!');
+        } else {
+            alert('Erro: ' + data.error);
+        }
+    } catch (error) {
+        console.error('Erro ao adicionar ao carrinho:', error);
+        alert('Erro ao adicionar ao carrinho');
+    }
 }

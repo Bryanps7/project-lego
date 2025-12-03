@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
--- Host: localhost    Database: projeto_3b
+-- Host: localhost    Database: project-lego
 -- ------------------------------------------------------
 -- Server version	8.0.40
 
@@ -16,178 +16,123 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cargo`
+-- Dumping data for table `addresses`
 --
 
-DROP TABLE IF EXISTS `cargo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cargo` (
-  `COD_CARGO` int NOT NULL,
-  `Nome_CARGO` varchar(50) NOT NULL,
-  PRIMARY KEY (`COD_CARGO`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cargo`
---
-
-LOCK TABLES `cargo` WRITE;
-/*!40000 ALTER TABLE `cargo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cargo` ENABLE KEYS */;
+LOCK TABLES `addresses` WRITE;
+/*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
+/*!40000 ALTER TABLE `addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `cargos`
+-- Dumping data for table `avatars`
 --
 
-DROP TABLE IF EXISTS `cargos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cargos` (
-  `COD_CARGO` int NOT NULL,
-  `NM_CARGO` varchar(50) NOT NULL,
-  PRIMARY KEY (`COD_CARGO`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cargos`
---
-
-LOCK TABLES `cargos` WRITE;
-/*!40000 ALTER TABLE `cargos` DISABLE KEYS */;
-INSERT INTO `cargos` VALUES (1,'Programador'),(2,'Analista'),(3,'Projetista');
-/*!40000 ALTER TABLE `cargos` ENABLE KEYS */;
+LOCK TABLES `avatars` WRITE;
+/*!40000 ALTER TABLE `avatars` DISABLE KEYS */;
+/*!40000 ALTER TABLE `avatars` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `funcionario`
+-- Dumping data for table `cart_items`
 --
 
-DROP TABLE IF EXISTS `funcionario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `funcionario` (
-  `MATRICULA` int NOT NULL,
-  `Nome_Funcionario` varchar(50) NOT NULL,
-  `fk_cod_cargo` int DEFAULT NULL,
-  PRIMARY KEY (`MATRICULA`),
-  KEY `fk_cod_cargo` (`fk_cod_cargo`),
-  CONSTRAINT `funcionario_ibfk_1` FOREIGN KEY (`fk_cod_cargo`) REFERENCES `cargo` (`COD_CARGO`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `funcionario`
---
-
-LOCK TABLES `funcionario` WRITE;
-/*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
+LOCK TABLES `cart_items` WRITE;
+/*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `funcionarios`
+-- Dumping data for table `carts`
 --
 
-DROP TABLE IF EXISTS `funcionarios`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `funcionarios` (
-  `MATRICULA` int NOT NULL,
-  `NOME` varchar(50) NOT NULL,
-  `fk_cod_cargo` int DEFAULT NULL,
-  PRIMARY KEY (`MATRICULA`),
-  KEY `fk_cod_cargo` (`fk_cod_cargo`),
-  CONSTRAINT `funcionarios_ibfk_1` FOREIGN KEY (`fk_cod_cargo`) REFERENCES `cargos` (`COD_CARGO`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `funcionarios`
---
-
-LOCK TABLES `funcionarios` WRITE;
-/*!40000 ALTER TABLE `funcionarios` DISABLE KEYS */;
-INSERT INTO `funcionarios` VALUES (120,'João',1),(121,'Hélio',1),(270,'Gabriel',2),(273,'Silva',3),(274,'Abraão',2),(279,'Carla',1),(301,'Ana',1),(306,'Manoel',3);
-/*!40000 ALTER TABLE `funcionarios` ENABLE KEYS */;
+LOCK TABLES `carts` WRITE;
+/*!40000 ALTER TABLE `carts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `carts` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `pertence`
+-- Dumping data for table `categories`
 --
 
-DROP TABLE IF EXISTS `pertence`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `pertence` (
-  `MATRICULA` int NOT NULL,
-  `COD_PROJ` int NOT NULL,
-  `HORAS` int DEFAULT NULL,
-  PRIMARY KEY (`MATRICULA`,`COD_PROJ`),
-  KEY `FK_Pertence_Projetos` (`COD_PROJ`),
-  CONSTRAINT `FK_Pertence_Funcionarios` FOREIGN KEY (`MATRICULA`) REFERENCES `funcionarios` (`MATRICULA`),
-  CONSTRAINT `FK_Pertence_Projetos` FOREIGN KEY (`COD_PROJ`) REFERENCES `projetos` (`COD_PROJ`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pertence`
---
-
-LOCK TABLES `pertence` WRITE;
-/*!40000 ALTER TABLE `pertence` DISABLE KEYS */;
-INSERT INTO `pertence` VALUES (120,1,37),(120,8,12),(121,1,45),(121,8,21),(121,12,107),(270,8,10),(270,12,38),(273,1,22),(274,1,22),(279,1,27),(279,8,20),(279,12,51),(301,12,16),(306,12,67);
-/*!40000 ALTER TABLE `pertence` ENABLE KEYS */;
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories` VALUES (1,'Diversos','Brinquedos Divertidos','diversos',1,'2025-12-03 13:41:15','2025-12-03 13:41:15');
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `projeto`
+-- Dumping data for table `coupons`
 --
 
-DROP TABLE IF EXISTS `projeto`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `projeto` (
-  `COD_PROJETO` int NOT NULL,
-  `dt_fim` date NOT NULL,
-  PRIMARY KEY (`COD_PROJETO`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `projeto`
---
-
-LOCK TABLES `projeto` WRITE;
-/*!40000 ALTER TABLE `projeto` DISABLE KEYS */;
-/*!40000 ALTER TABLE `projeto` ENABLE KEYS */;
+LOCK TABLES `coupons` WRITE;
+/*!40000 ALTER TABLE `coupons` DISABLE KEYS */;
+/*!40000 ALTER TABLE `coupons` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `projetos`
+-- Dumping data for table `logs`
 --
 
-DROP TABLE IF EXISTS `projetos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `projetos` (
-  `COD_PROJ` int NOT NULL,
-  `dt_fim` date NOT NULL,
-  PRIMARY KEY (`COD_PROJ`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `logs` WRITE;
+/*!40000 ALTER TABLE `logs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Dumping data for table `projetos`
+-- Dumping data for table `payments`
 --
 
-LOCK TABLES `projetos` WRITE;
-/*!40000 ALTER TABLE `projetos` DISABLE KEYS */;
-INSERT INTO `projetos` VALUES (1,'1995-07-17'),(8,'1996-01-12'),(12,'1996-03-21');
-/*!40000 ALTER TABLE `projetos` ENABLE KEYS */;
+LOCK TABLES `payments` WRITE;
+/*!40000 ALTER TABLE `payments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `payments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `products`
+--
+
+LOCK TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products` VALUES (2,'LEGO Star Wars – Millennium Falcon','Icônica nave espacial com detalhes internos e figuras clássicas.',1599.90,1,'lego-star-wars-millennium-falcon',1353,9,4.8,5,0,1,'https://http2.mlstatic.com/D_NQ_NP_2X_661827-MLA100010314313_122025-F.webp','2025-12-03 13:41:22','2025-12-03 13:41:22'),(3,'LEGO Technic – Moto Esportiva','Modelo avançado de moto esportiva com suspensão funcional.',349.90,1,'lego-technic-moto-esportiva',467,10,4.7,18,0,1,'https://m.media-amazon.com/images/I/812ayBeUg0L._AC_SL1500_.jpg','2025-12-03 13:43:06','2025-12-03 13:43:06'),(4,'LEGO City – Caminhão dos Bombeiros','Caminhão clássico com escada extensível e acessórios de resgate.',199.90,1,'lego-city-caminhao-dos-bombeiros',290,5,4.6,25,0,1,'https://m.magazineluiza.com.br/a-static/420x420/lego-city-caminhao-dos-bombeiros-4x4-com-barco-de-resgate-60412-301-pecas/magazineluiza/238049000/2346e6e5ce06a72ce4ad47c8ef0d8e14.jpg','2025-12-03 13:43:37','2025-12-03 13:43:37'),(5,'LEGO Marvel – Armadura Hulkbuster','Armadura icônica do Homem de Ferro com articulações detalhadas.',429.90,1,'lego-marvel-armadura-hulkbuster',456,8,4.9,9,0,1,'https://images.tcdn.com.br/img/img_prod/765989/lego_marvel_o_caca_hulk_a_batalha_de_wakanda_76247_6000899_1_e81873d58faa4c640a5667d9a66f3723.jpg','2025-12-03 13:44:43','2025-12-03 13:44:43'),(6,'LEGO Creator – Casa Moderna 3 em 1','Casa modular com 3 variações de construção e detalhes realistas.',269.90,1,'lego-creator-casa-moderna-3-em-1',389,7,4.8,14,0,1,'https://m.media-amazon.com/images/I/81qrjmyla1L._AC_SL1500_.jpg','2025-12-03 13:45:24','2025-12-03 13:45:24');
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sale_items`
+--
+
+LOCK TABLES `sale_items` WRITE;
+/*!40000 ALTER TABLE `sale_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sale_items` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sales`
+--
+
+LOCK TABLES `sales` WRITE;
+/*!40000 ALTER TABLE `sales` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sales` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `stocks`
+--
+
+LOCK TABLES `stocks` WRITE;
+/*!40000 ALTER TABLE `stocks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `stocks` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Bryan Prinz','bryanprinz2008@gmail.com','$2b$10$a7XKnr/2utmEuk6cRSlLoOO/NEqtnbYJ.wkInZWOXx0WxhehzMy2y',48991375142,14325524908,'OWNER',1,0,NULL,'2025-12-03 13:36:14','2025-12-03 13:36:14');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -199,4 +144,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-03 11:03:50
+-- Dump completed on 2025-12-03 11:47:09

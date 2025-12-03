@@ -9,7 +9,9 @@ const { createSale_item } = require('../service/sale_item.service')
 
 async function create(req, res) {
     try {
-        const sale = await createSale(req.body)
+        const user_id = req.user.id
+        const saleData = { ...req.body, user_id }
+        const sale = await createSale(saleData)
 
         const sale_items = await createSale_item(req.body, sale.id)
 
