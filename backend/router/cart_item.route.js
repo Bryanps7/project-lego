@@ -15,7 +15,7 @@ const { isAdminMiddleware } = require('../middleware/isAdmin.middleware')
 
 // USUÁRIO
 router.post('/', authMiddleware, create)
-router.get('/', authMiddleware, listOwn)
+router.get('/:id', authMiddleware, listOwn)
 router.patch('/:id/quantity', authMiddleware, updateQuantity)
 router.delete('/:id', authMiddleware, delet)
 

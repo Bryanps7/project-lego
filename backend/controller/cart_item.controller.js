@@ -23,8 +23,10 @@ async function create(req, res) {
 
 async function listOwn(req, res) {
     try {
-        const user_id = req.user.id
+        
+        const user_id = req.params.id
         const items = await listUserCartItems(user_id)
+
 
         return res.status(200).json(items)
     } catch (err) {

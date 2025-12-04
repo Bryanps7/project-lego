@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadCart() {
-    const token = localStorage.getItem('token');
+    const id = window.localStorage.getItem('id')
+    const token = window.localStorage.getItem('token');
+
     if (!token) {
         alert('Você precisa estar logado para ver o carrinho');
         window.location.href = 'index.html';
@@ -11,20 +13,17 @@ async function loadCart() {
     }
 
     try {
-        const response = await fetch('http://localhost:3000/cart-item', {
+       fetch(`http://localhost:3000/cart-item/${id}`, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }
-        });
-
-        const items = await response.json();
-
-        if (response.ok) {
+        })
+        .then(resp => resp.json())
+        .then(items => {
             displayCartItems(items);
             calculateTotals(items);
-        } else {
-            alert('Erro ao carregar carrinho: ' + items.error);
-        }
+        })
+
     } catch (error) {
         console.error('Erro ao carregar carrinho:', error);
     }
@@ -39,6 +38,8 @@ function displayCartItems(items) {
         container.innerHTML += '<p class="text-center">Seu carrinho está vazio</p>';
         return;
     }
+
+    fetch('http://localhost:3000/product/')
 
     items.forEach(item => {
         const itemHtml = `

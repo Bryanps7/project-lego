@@ -105,7 +105,8 @@ fetch('http://localhost:3000/product')
         console.error(err.message);
     })
 
-async function addCarrinho(productId) {
+
+    async function addCarrinho(productId) {
     const token = localStorage.getItem('token');
     if (!token) {
         alert('Você precisa estar logado para adicionar ao carrinho');
@@ -114,6 +115,9 @@ async function addCarrinho(productId) {
 
     const quantityInput = document.getElementById(`quant-${productId}`);
     const quantity = parseInt(quantityInput.value) || 1;
+
+    console.log(quantity);
+    
 
     if (quantity <= 0) {
         alert('Quantidade deve ser maior que 0');

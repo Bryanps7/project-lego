@@ -88,6 +88,7 @@ function login() {
             // alert(valores.message)
             console.log(valores);
 
+            localStorage.setItem('id', valores.user.id)
             localStorage.setItem('token', valores.token)
             localStorage.setItem('nome', valores.user.name)
             localStorage.setItem('coin', valores.user.coin_points)

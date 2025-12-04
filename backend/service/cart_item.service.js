@@ -48,18 +48,18 @@ async function createCartItem(user_id, dados) {
 }
 
 async function listUserCartItems(user_id) {
+    
     const cart = await Cart.findOne({ where: { user_id } })
+    
     if (!cart) {
         throw new Error('Carrinho não encontrado para este usuário')
     }
-
+    
     const items = await Cart_item.findAll({
-        where: { cart_id: cart.id },
-        include: [{
-            model: Product,
-            as: 'productCart_item'
-        }]
+        where: { cart_id: cart.id }
     })
+
+    console.log('Aqui: ',items);
 
     return items
 }
